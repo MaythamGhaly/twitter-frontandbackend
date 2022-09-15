@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2022 at 07:58 AM
+-- Generation Time: Sep 15, 2022 at 08:02 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -152,6 +152,7 @@ INSERT INTO `tweets_pictues` (`id`, `picture_url`, `tweets_id`) VALUES
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
+  `email` varchar(45) NOT NULL,
   `first_name` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
   `username` varchar(45) DEFAULT NULL,
@@ -165,17 +166,17 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `password`, `profile_picture_url`, `cover_picture_url`, `created_at`) VALUES
-(1, 'Houssein', 'Droubi', '@houssein', 'test', 'NA', 'NA', '2022-09-01'),
-(2, 'Mouhamad', 'Droubi', '@mouhamad', 'test', 'NA', 'NA', '2022-09-02'),
-(3, 'Ali', 'Droubi', '@ali', 'test', 'NA', 'Na', '2022-09-03'),
-(4, 'Nour', 'Doe', '@nour', 'test', 'Na', 'Na', '1899-12-31'),
-(5, 'Abbas', 'Doe', '@Abbas', 'test', 'NA', 'NA', '2022-09-05'),
-(6, 'samah', 'Doe', '@samah', 'test', 'NA', 'NA', '2022-09-04'),
-(7, 'Joumana', 'Doe', '@jumana', 'test', 'N', 'Na', '2022-09-06'),
-(8, 'Fatima', 'Doe', '@Fatima', 'test', 'Na', 'Na', '2022-09-08'),
-(9, 'Amal', 'Doe', '@amal', 'test', 'NA', 'Na', '2022-09-09'),
-(10, 'Zaynab', 'Doe', '@zaynab', 'test', 'NA', 'NA', '2022-09-10');
+INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `username`, `password`, `profile_picture_url`, `cover_picture_url`, `created_at`) VALUES
+(1, 'houssein@gmail.com', 'Houssein', 'Droubi', '@houssein', 'test', 'NA', 'NA', '2022-09-01'),
+(2, 'mouhamad@gmail.com', 'Mouhamad', 'Droubi', '@mouhamad', 'test', 'NA', 'NA', '2022-09-02'),
+(3, 'ali@gmail.com', 'Ali', 'Droubi', '@ali', 'test', 'NA', 'Na', '2022-09-03'),
+(4, 'nour@gmail.com', 'Nour', 'Doe', '@nour', 'test', 'Na', 'Na', '1899-12-31'),
+(5, 'abbas@gmail.com', 'Abbas', 'Doe', '@Abbas', 'test', 'NA', 'NA', '2022-09-05'),
+(6, 'samah@gmail.com', 'samah', 'Doe', '@samah', 'test', 'NA', 'NA', '2022-09-04'),
+(7, 'joumana@gmail.com', 'Joumana', 'Doe', '@jumana', 'test', 'N', 'Na', '2022-09-06'),
+(8, 'fatima@gmail.com', 'Fatima', 'Doe', '@Fatima', 'test', 'Na', 'Na', '2022-09-08'),
+(9, 'amal@gmail.com', 'Amal', 'Doe', '@amal', 'test', 'NA', 'Na', '2022-09-09'),
+(10, 'zaynab@gmail.com', 'Zaynab', 'Doe', '@zaynab', 'test', 'NA', 'NA', '2022-09-10');
 
 --
 -- Indexes for dumped tables

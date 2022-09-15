@@ -7,11 +7,5 @@ $host="localhost";
 $db_user="root";
 $db_pass=null;
 $db_name="twitterdb";
-
-if($mysqli =new mysqli($host,$db_user,$db_pass,$db_name)){
-    echo 'done';
-}
-else{
-    echo 'fail';    
-}
+$mysqli =new mysqli($host,$db_user,$db_pass,$db_name)
 ?>
