@@ -11,9 +11,16 @@ if(isset($_GET['id'])){
     $query=$mysqli->prepare("SELECT first_name,last_name,username,profile_picture_url,cover_picture_url,created_at FROM users WHERE id=? LIMIT 1");
     $query->bind_param("s",$id);
     $query->execute();
-    $array=$query->get_result()->fetch_assoc();
-    // Create JSON response and return it
+    $array_data=$query->get_result()->fetch_assoc();
+    // Create JSON response and return profile data of this user
     $response=[];
-    $response[]= $array;
+    $response["first_name"]= $array_profile_data['first_name'];
+    $response["last_name"]= $array_profile_data['last_name'];
+    $response["profile_picture_url"]= $array_profile_data['profile_picture_url'];
+    $response["cover_picture_url"]= $array_profile_data['cover_picture_url'];
+    $response["created_at"]= $array_profile_data['created_at'];
+
+    // Now, we have to add to JSON response his tweets, their numbers and their pictures.
+    // $response_tweets=[];
     echo json_encode($response);
 }
