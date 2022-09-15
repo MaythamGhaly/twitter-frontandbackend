@@ -51,9 +51,12 @@ if(isset($_GET['id'])){
         while($b=$array_pictures->fetch_assoc()){
                $picture_url[]=$b['picture_url'];
         }
+        // Put the pictures array insede response_tweets_data (same as id,text,likes...)
         $response_tweets_data['picture_urls']=$picture_url;
+        // Prepare the whole data of this tweet.
         $response_tweets[]=$response_tweets_data;
     }
+    // Put the prepared data into the JSON response (same as first name, last name...)
     $response['tweets']=$response_tweets;
     echo json_encode($response);
 }
