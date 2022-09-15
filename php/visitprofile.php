@@ -3,13 +3,18 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
 header('Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorization, X-Request-With');
 include("connection.php");
+
 if(isset($_GET['id'])){
     // Get id using GET method
     $id=$_GET['id'];
 
     // We don't need all data, we only need data that everyone can see. hence, we shouldn't return sensitive data like passowrd,email ...
-    $query=$mysqli->prepare("SELECT first_name,last_name,username,profile_picture_url,cover_picture_url,created_at FROM users WHERE id=? LIMIT 1");
-    $query->bind_param("s",$id);
+    $query=$mysqli->prepare("SELECT `users`.first_name,`users`.last_name,`users`.username,`users`.profile_picture_url,`users`.cover_picture_url,`users`.created_at, 
+    COUNT( CASE WHEN `followers`.users_id = ? THEN 1 END ) AS following,
+    COUNT( CASE WHEN `followers`.user_following = ? THEN 1 END ) AS followers 
+    FROM users,followers
+    WHERE `users`.`id`=? LIMIT 1");
+    $query->bind_param("sss",$id,$id,$id);
     $query->execute();
     $array_profile=$query->get_result()->fetch_assoc();
 
@@ -25,7 +30,8 @@ if(isset($_GET['id'])){
     $response["profile_picture_url"]= $array_profile['profile_picture_url'];
     $response["cover_picture_url"]= $array_profile['cover_picture_url'];
     $response["created_at"]= $array_profile['created_at'];
-
+    $response["following"]= $array_profile['following'];
+    $response["followers"]= $array_profile['followers'];
     // Now, we have to add to JSON response user's tweets, their numbers and their pictures.
     // response_tweets_data is the array containing all the data about each tweet
     $response_tweets_data=[];
