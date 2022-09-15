@@ -21,7 +21,7 @@ if(isset($_POST['first_name'])){
     $query->execute();
     $return = $query->get_result()->fetch_assoc();
 
-    // If the result is 1, so, this email is exsited before. Hence, we have to return is_registered with JSON.
+    // If the result is 1, so, this email is exsited before. Hence, we have to return is_registered with JSON, otherwise, we have to start filling data.
     if($return['num']==1){
         $response=[];
         $response["status"]='is_registered';
