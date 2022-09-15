@@ -5,11 +5,11 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorizatio
 include("connection.php");
 if(isset($_POST['id'])){
 // Get all parameters using POST method
-    $username=$_POST['username'];
+    $password = hash("sha256", $_POST["password"]);
     $id=$_POST['id'];
     
-    $query=$mysqli->prepare("UPDATE `users` SET `users`.username=? WHERE id=?");
-    $query->bind_param("ss",$username,$id);
+    $query=$mysqli->prepare("UPDATE `users` SET `users`.password=? WHERE id=?");
+    $query->bind_param("ss",$password,$id);
     $response=[];
     // In case the query is executed, we have to return done, otherwise, we have to return error
     if($query->execute()){
