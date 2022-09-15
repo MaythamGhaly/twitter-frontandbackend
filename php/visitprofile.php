@@ -38,8 +38,8 @@ if(isset($_GET['id'])){
     // response_tweets is the array containing all the data about all tweets
     $response_tweets=[];
     // Now, we are getting data of the tweets in addition to the number of likes of each form another table which is tweets_likes.
-    $query=$mysqli->prepare("SELECT tweets.id,tweets.text,tweets.created_at,COUNT(tweets.id) as likes FROM tweets,tweets_likes WHERE tweets.user_id=? AND tweets.id=tweets_likes.tweets_id GROUP BY tweets.id ORDER BY tweets.created_at DESC");
-    $query->bind_param("s",$id);
+    $query=$mysqli->prepare("SELECT tweets.id,tweets.text,tweets.created_at,COUNT(tweets.id) as likes ,COUNT( CASE WHEN tweets_likes.users_id = ? THEN 1 END ) AS liked FROM tweets,tweets_likes WHERE tweets.user_id=? AND tweets.id=tweets_likes.tweets_id GROUP BY tweets.id ORDER BY tweets.created_at DESC");
+    $query->bind_param("ss",$id,$id);
     $query->execute();
     $array_tweets=$query->get_result();
     while($a = $array_tweets->fetch_assoc()){
@@ -47,6 +47,7 @@ if(isset($_GET['id'])){
         $response_tweets_data['text']=$a['text'];
         $response_tweets_data['created_at']=$a['created_at'];
         $response_tweets_data['likes']=$a['likes'];
+        $response_tweets_data['liked']=$a['liked'];
         // Now, we want to get the pictures' urls of every tweet and put them inside response_tweets_data
         $query=$mysqli->prepare("SELECT picture_url FROM tweets_pictures WHERE tweets_id=?");
         $query->bind_param("s",$a['id']);
