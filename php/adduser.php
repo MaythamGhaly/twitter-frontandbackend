@@ -71,7 +71,18 @@ if($return['num']==1){
     mkdir($profile_picture_path, 755);
     mkdir($cover_picture_path, 755);
     mkdir($tweets_path, 755);
-    
+    $profile_picture_path=$profile_picture_path."/".strtotime($current_time).".png";
+    $cover_picture_path=$cover_picture_path."/".strtotime($current_time).".png";
+    file_put_contents($profile_picture_path, $profile_picture);
+    file_put_contents($cover_picture_path, $cover_picture);
+
+    $query=$mysqli->prepare("UPDATE `users` SET profile_picture_url=?,cover_picture_url=? WHERE id = ?");
+    $query->bind_param("sss",$profile_picture_path,$cover_picture_path,$id);
+    $query->execute();
+    $response=[];
+    $response["status"]='is_registered';
+    $response["id"]=$id;
+    echo json_encode($response);
 }
 // $array=$query1->get_result();
 // // Create Json response
