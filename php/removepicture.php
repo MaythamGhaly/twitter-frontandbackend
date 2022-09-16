@@ -7,26 +7,27 @@ if(isset($_POST['id'])){
     // Get all parameters using POST method
     $id = $_POST['id'];
 
-    // Now we have to get what inside cover_picture_url, so, in case the return is NA that means the cover is already removed.
+    // Now we have to get what inside profile_picture_url, so, in case the return is NA that means the picture is already removed.
     // Otherwise, it will be a link of the image and we have to delete it
-    $query=$mysqli->prepare("SELECT cover_picture_url FROM `users` WHERE id=? LIMIT 1");
+    $query=$mysqli->prepare("SELECT profile_picture_url FROM `users` WHERE id=? LIMIT 1");
     $query->bind_param("s",$id);
     $query->execute();
     $return = $query->get_result()->fetch_assoc();
+
     // Return already removed if the response is NA
-    if($return ['cover_picture_url']=="NA"){
+    if($return ['profile_picture_url']=="NA"){
         $response=[];
         $response["status"]='already removed';
         echo json_encode($response);
     // Update field and put NA, then delete the picture from its path
     }else{
         $na="NA";
-        $query=$mysqli->prepare("UPDATE `users` SET cover_picture_url =? WHERE id=? LIMIT 1");
+        $query=$mysqli->prepare("UPDATE `users` SET profile_picture_url =? WHERE id=? LIMIT 1");
         $query->bind_param("ss",$na,$id);
-        if($query->execute() && unlink($return['cover_picture_url'])){
-            // Return cover removed in case both cases above are done
+        if($query->execute() && unlink($return['profile_picture_url'])){
+            // Return picture profile in case both cases above are done
             $response=[];
-            $response["status"]='cover removed';
+            $response["status"]='profile removed';
             echo json_encode($response);
         }
     }
