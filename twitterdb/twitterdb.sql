@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2022 at 08:02 AM
+-- Generation Time: Sep 16, 2022 at 10:42 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -48,7 +48,7 @@ INSERT INTO `blockers` (`users_id`, `user_blocking`, `created_at`) VALUES
 --
 
 CREATE TABLE `followers` (
-  `users_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `user_following` int(11) NOT NULL,
   `created_at` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -57,7 +57,7 @@ CREATE TABLE `followers` (
 -- Dumping data for table `followers`
 --
 
-INSERT INTO `followers` (`users_id`, `user_following`, `created_at`) VALUES
+INSERT INTO `followers` (`user_id`, `user_following`, `created_at`) VALUES
 (1, 2, NULL),
 (1, 3, NULL),
 (1, 5, NULL),
@@ -72,7 +72,7 @@ INSERT INTO `followers` (`users_id`, `user_following`, `created_at`) VALUES
 (4, 10, NULL),
 (5, 1, NULL),
 (5, 8, NULL),
-(6, 2, NULL),
+(6, 1, NULL),
 (7, 4, NULL),
 (8, 2, NULL),
 (8, 9, NULL),
@@ -89,16 +89,16 @@ CREATE TABLE `tweets` (
   `id` int(11) NOT NULL,
   `text` varchar(280) DEFAULT NULL,
   `created_at` date DEFAULT NULL,
-  `users_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tweets`
 --
 
-INSERT INTO `tweets` (`id`, `text`, `created_at`, `users_id`) VALUES
-(1, 'Hi this is a text from houssein', NULL, 1),
-(2, 'Hi this is a text from Mouhamad', NULL, 2);
+INSERT INTO `tweets` (`id`, `text`, `created_at`, `user_id`) VALUES
+(1, 'Hi this is a text from houssein', '2022-09-02', 1),
+(2, 'Hi this is another text from Houssein', '2022-09-15', 1);
 
 -- --------------------------------------------------------
 
@@ -110,14 +110,14 @@ CREATE TABLE `tweets_likes` (
   `id` int(11) NOT NULL,
   `created_at` date DEFAULT NULL,
   `tweets_id` int(11) NOT NULL,
-  `users_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tweets_likes`
 --
 
-INSERT INTO `tweets_likes` (`id`, `created_at`, `tweets_id`, `users_id`) VALUES
+INSERT INTO `tweets_likes` (`id`, `created_at`, `tweets_id`, `user_id`) VALUES
 (1, NULL, 1, 1),
 (2, NULL, 1, 10),
 (3, NULL, 2, 4),
@@ -126,22 +126,22 @@ INSERT INTO `tweets_likes` (`id`, `created_at`, `tweets_id`, `users_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tweets_pictues`
+-- Table structure for table `tweets_pictures`
 --
 
-CREATE TABLE `tweets_pictues` (
+CREATE TABLE `tweets_pictures` (
   `id` int(11) NOT NULL,
   `picture_url` varchar(255) DEFAULT NULL,
   `tweets_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tweets_pictues`
+-- Dumping data for table `tweets_pictures`
 --
 
-INSERT INTO `tweets_pictues` (`id`, `picture_url`, `tweets_id`) VALUES
+INSERT INTO `tweets_pictures` (`id`, `picture_url`, `tweets_id`) VALUES
 (1, 'NA', 1),
-(2, 'Na', 2),
+(2, 'Na', 1),
 (3, 'NA', 2);
 
 -- --------------------------------------------------------
@@ -156,7 +156,7 @@ CREATE TABLE `users` (
   `first_name` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
   `username` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `profile_picture_url` varchar(255) DEFAULT NULL,
   `cover_picture_url` varchar(255) DEFAULT NULL,
   `created_at` date DEFAULT NULL
@@ -167,8 +167,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `username`, `password`, `profile_picture_url`, `cover_picture_url`, `created_at`) VALUES
-(1, 'houssein@gmail.com', 'Houssein', 'Droubi', '@houssein', 'test', 'NA', 'NA', '2022-09-01'),
-(2, 'mouhamad@gmail.com', 'Mouhamad', 'Droubi', '@mouhamad', 'test', 'NA', 'NA', '2022-09-02'),
+(1, 'houssein@gmail.com', 'Houssein', 'Droubi', '@houssein', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'NA', 'NA', '2022-09-01'),
+(2, 'mouhamad@gmail.com', 'Mouhamad', 'Droubi', '@mouhamad', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'NA', 'NA', '2022-09-02'),
 (3, 'ali@gmail.com', 'Ali', 'Droubi', '@ali', 'test', 'NA', 'Na', '2022-09-03'),
 (4, 'nour@gmail.com', 'Nour', 'Doe', '@nour', 'test', 'Na', 'Na', '1899-12-31'),
 (5, 'abbas@gmail.com', 'Abbas', 'Doe', '@Abbas', 'test', 'NA', 'NA', '2022-09-05'),
@@ -176,7 +176,9 @@ INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `username`, `pass
 (7, 'joumana@gmail.com', 'Joumana', 'Doe', '@jumana', 'test', 'N', 'Na', '2022-09-06'),
 (8, 'fatima@gmail.com', 'Fatima', 'Doe', '@Fatima', 'test', 'Na', 'Na', '2022-09-08'),
 (9, 'amal@gmail.com', 'Amal', 'Doe', '@amal', 'test', 'NA', 'Na', '2022-09-09'),
-(10, 'zaynab@gmail.com', 'Zaynab', 'Doe', '@zaynab', 'test', 'NA', 'NA', '2022-09-10');
+(10, 'zaynab@gmail.com', 'Zaynab', 'Doe', '@zaynab', 'test', 'NA', 'NA', '2022-09-10'),
+(18, 'mahdi@gmail.com', 'Mahdi', 'Doe', '@Mahdi', 'tests', 'users/18/profile/1663275600.png', 'users/18/cover/1663275600.png', '2022-09-15'),
+(19, 'hassan@gmail.com', 'hassan', 'Doe', '@hassan', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'users/19/profile/1663189200.png', 'users/19/cover/1663189200.png', '2022-09-15');
 
 --
 -- Indexes for dumped tables
@@ -192,7 +194,7 @@ ALTER TABLE `blockers`
 -- Indexes for table `followers`
 --
 ALTER TABLE `followers`
-  ADD PRIMARY KEY (`users_id`,`user_following`);
+  ADD PRIMARY KEY (`user_id`,`user_following`);
 
 --
 -- Indexes for table `tweets`
@@ -207,9 +209,9 @@ ALTER TABLE `tweets_likes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tweets_pictues`
+-- Indexes for table `tweets_pictures`
 --
-ALTER TABLE `tweets_pictues`
+ALTER TABLE `tweets_pictures`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -235,16 +237,16 @@ ALTER TABLE `tweets_likes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `tweets_pictues`
+-- AUTO_INCREMENT for table `tweets_pictures`
 --
-ALTER TABLE `tweets_pictues`
+ALTER TABLE `tweets_pictures`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
