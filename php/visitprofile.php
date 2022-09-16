@@ -5,7 +5,7 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorizatio
 include("connection.php");
 
 if(isset($_GET['id'])){
-    // Get id using GET method
+    // Get all parameters using GET method
     $id=$_GET['id'];
     $other_id=$_GET['other_id'];
 
@@ -74,7 +74,7 @@ if(isset($_GET['id'])){
         // 2-if first user is followed by the other user, so, the response must be 'follows you'.
         // 3-if both first user and other user follow each other, so, the response must be 'friends'.
         // 4-if neither first user is following the other user nor vice versa, so, the response must be 'not friends'.
-    $query = $mysqli->prepare('SELECT * from followers WHERE (followers.user_id=? or followers.user_id=?) and(followers.user_following=? or followers.user_following=?)');    
+    $query = $mysqli->prepare('SELECT * from followers WHERE (followers.user_id=? or followers.user_id=?) and(followers.user_following=? or followers.user_following=?) LIMIT 2');    
     $query->bind_param("ssss",$id,$other_id,$id,$other_id);
     $query->execute();
     $return=$query->get_result();
