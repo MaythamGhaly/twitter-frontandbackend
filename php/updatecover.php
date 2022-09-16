@@ -9,7 +9,7 @@ if(isset($_POST['id'])){
     $cover_picture = $_POST['cover_picture'];
 
     // Here, we need to get the url of cover image. Hence, we have two case:
-        // 1-In case it's a valid path that means we must remove the cover
+        // 1-In case it's a valid path that means we must remove the cover picture
         // and put the new image with new path according to current time.
         // 2-Another case if it's NA, so we start inserting the new image and update cover url filed in users table.
     $query=$mysqli->prepare("SELECT cover_picture_url FROM `users` WHERE id=? LIMIT 1");
