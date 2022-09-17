@@ -15,13 +15,12 @@ if(isset($_POST['id'])){
     $query->bind_param("sss",$id,$other_id,$current_time);
     // Here we have two cases: if the above query has been executed, so, we have to return done with JSON response.
     // Otherwise, the query will never be executed since user_id and user_following are primary key, so, first user is already following second user.
+    
+    $response=[];
     if($query->execute()){
-        $response=[];
         $response['status']="done";
-        echo json_encode($response);
     }else{
-        $response=[];
         $response['status']="already following";
-        echo json_encode($response);
     }
+    echo json_encode($response);
 }
