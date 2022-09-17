@@ -267,7 +267,7 @@ p {
 .Tweet{
     text-align: center;
     margin-top: 30px;
-    width: 50%;
+    width: 90%;
     border-bottom: 1px solid black;
 }
 .Tweet-title{
@@ -312,7 +312,14 @@ p {
     font-family: Arial, Helvetica, sans-serif;
     color: #000;
     margin: 7px;
-    
+}
+.image{
+    margin-top: 50px;
+    height: 300px;
+}
+.images{
+    display: flex;
+    flex-wrap: wrap;
 }
 .heart{
     width: 20px;
@@ -387,5 +394,8 @@ p {
     }
     .profile-info{
         justify-content: space-between;
+    }
+    .Tweet{
+        width: 50%;
     }
 }
