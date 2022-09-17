@@ -1,9 +1,8 @@
 // Since we are working with local storage, we need to check if the user has checked remember me before, either in sign in
 // or in signup with new account
-
 if(!localStorage.getItem("remember_me")==null || localStorage.getItem("remember_me")=='true'){
     // Here the user is clicked on remember me. Hence, we have to redirect him/her to the feeds page.
-    
+    location.replace("file:///C:/xampp/htdocs/twitter-frontandbackend/twitter-frontandbackend-mathambranch/Profile%20page/index.html");
     // TODO:redirect user to feeds page
 }else{
     // We have to clear local storage if user didn't check remember me checkbox.
@@ -170,7 +169,7 @@ if(!localStorage.getItem("remember_me")==null || localStorage.getItem("remember_
                     localStorage.setItem("remember_me","false");
                 }
                 localStorage.setItem("id",Object.values(data)[1]);
-                // TODO:redirect user to feeds page
+                location.replace("file:///C:/xampp/htdocs/twitter-frontandbackend/twitter-frontandbackend-mathambranch/Profile%20page/index.html");
             }else{
                 // In case the first response is not done, so it will be is_registered, which means that this email is
                 // existed before.
@@ -187,7 +186,6 @@ if(!localStorage.getItem("remember_me")==null || localStorage.getItem("remember_
         const remember_me_sign_in=document.getElementById('remember_me_sign_in');
         const login=document.getElementById('login');
         let checkEmailPassword = ()=>{
-            console.log('hy');
             if(email_sign_in.value==''){
                 addColorRed(email_sign_in,"Required *");
             }else if(password_sign_in.value==''){
@@ -213,7 +211,7 @@ if(!localStorage.getItem("remember_me")==null || localStorage.getItem("remember_
                             localStorage.setItem("remember_me","false");
                         }
                         localStorage.setItem("id",Object.values(data)[1]);
-                        // TODO:redirect user to feeds page
+                        location.replace("file:///C:/xampp/htdocs/twitter-frontandbackend/twitter-frontandbackend-mathambranch/Profile%20page/index.html");
                     }else{
                         // In case the first response is not registered so, that means either email or password is wrong
                         email_sign_in.value="";
@@ -223,7 +221,6 @@ if(!localStorage.getItem("remember_me")==null || localStorage.getItem("remember_
                         password_sign_in.classList.add('red-color-text');
                         password_sign_in.placeholder="Wrong email or password";
                     }
-                    console.log(data);
                 });
             }
         }
