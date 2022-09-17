@@ -268,13 +268,55 @@ p {
     text-align: center;
     margin-top: 30px;
     width: 50%;
+    border-bottom: 1px solid black;
 }
-.Tweet-header{
+.Tweet-title{
     font-size: 25px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     color: rgb(103, 144, 255);
     margin-top: 50px;
+}
+.tweet-header{
+    display: flex;
+    text-align: center;
+}
+.name-date > p {
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #000;
+    margin: 15px 40px 2px;
+}
+.tweet-profile{
+    width: 50px;
+    height: 50px;
+    float: left;
+    border-radius: 100px;
+}
+.tweet-text{
+    margin: 20px 50px;
+    text-align: left;
+}
+.tweet-text >p {
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(0, 0, 0);
+}
+.likes{
+    display: flex;
+    float: left;
+}
+.likes > p{
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000;
+    margin: 7px;
+    
+}
+.heart{
+    width: 20px;
+    height: 20px;
 }
 /* media query */
 @media (min-width: 768px) {
