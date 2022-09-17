@@ -3,11 +3,13 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
 header('Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorization, X-Request-With');
 include("connection.php");
-
 if($_GET['id']){
+    // Get all parameters using GET method
     $id=$_GET['id'];
     $keyword=$_GET['keyword'];
+    // Add % before and after keyword since we want the aproximately matches from table users.
     $keyword="%".$keyword."%";
+    // The query below will get some data about users but without existing a user with searching user in blockers table.
     $query=$mysqli->prepare("SELECT DISTINCT users.id,users.first_name,users.last_name,users.username,users.profile_picture_url
     FROM users,blockers
     WHERE (users.first_name LIKE ? OR users.last_name LIKE ? OR users.username LIKE ?) AND
@@ -18,28 +20,24 @@ if($_GET['id']){
         )");
     $query->bind_param("sssss",$keyword,$keyword,$keyword,$id,$id);
     $query->execute();
-    $array_pictures=$query->get_result();
+    $array=$query->get_result();
+    // After getting some data from table users, we need to get also number of tweets, following and followers of each user.
+    $response_data=[];
     $response=[];
-    while($a = $array_pictures->fetch_assoc())
+    while($a = $array->fetch_assoc())
     {
-        $response[]=$a;
+        $response_data['id']=$a['id'];
+        $response_data['first_name']=$a['first_name'];
+        $response_data['last_name']=$a['last_name'];
+        $response_data['username']=$a['username'];
+        $response_data['profile_picture_url']=$a['profile_picture_url'];
+        $query = $mysqli->prepare("SELECT COUNT(id) as tweet FROM tweets WHERE tweets.user_id=?");
+        $query->bind_param("s",$a['id']);
+        $query->execute();
+        $return=$query->get_result()->fetch_assoc();
+        $response_data['tweet']=$return['tweet'];
+        $response[]=$response_data;
     }
     echo json_encode($response);
-
-    // SELECT DISTINCT users.id,users.first_name,users.last_name,users.username,users.profile_picture_url
-    // FROM users,blockers
-    // WHERE (users.first_name LIKE '%e%' OR users.last_name LIKE '%e%' OR users.username LIKE '%e%') AND
-    // (users.id NOT IN 
-    //     (SELECT blockers.user_id FROM blockers WHERE blockers.user_id =users.id AND blockers.user_blocking=1)
-    // )
-// TODO:
-// SELECT DISTINCT users.id,users.first_name,users.last_name,users.username,users.profile_picture_url
-// FROM users,blockers
-// WHERE (users.first_name LIKE '%e%' OR users.last_name LIKE '%e%' OR users.username LIKE '%e%') AND
-// (users.id NOT IN 
-//     (SELECT blockers.user_id FROM blockers WHERE blockers.user_id =users.id AND blockers.user_blocking=1)) AND
-//     (users.id NOT IN
-//     (SELECT blockers.user_blocking FROM blockers WHERE blockers.user_id=1 AND blockers.user_blocking=users.id)
-//     )
 }
 ?>
