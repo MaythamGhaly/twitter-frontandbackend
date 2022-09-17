@@ -41,11 +41,11 @@ if(isset($_GET['id'])){
     // Now, we are getting data of the each tweet's data
     $query=$mysqli->prepare("SELECT tweets.id,tweets.text,tweets.created_at
     FROM tweets
-    WHERE tweets.user_id=?;");
+    WHERE tweets.user_id=? ORDER BY created_at DESC");
     $query->bind_param("s",$other_id);
     $query->execute();
     $array_tweets=$query->get_result();
-// adaddasdassaddasdas
+
     while($a = $array_tweets->fetch_assoc()){
         $response_tweets_data['id']=$a['id'];
         $response_tweets_data['text']=$a['text'];
@@ -53,14 +53,14 @@ if(isset($_GET['id'])){
 
         // Getting the number of likes of each tweet
         $query=$mysqli->prepare("SELECT COUNT(*) as numlikes FROM tweets_likes WHERE tweets_likes.tweet_id=?");
-        $query->bind_param("s",$a['tweets.id']);
+        $query->bind_param("s",$a['id']);
         $query->execute();
         $return=$query->get_result()->fetch_assoc();
         $response_tweets_data['numlikes']=$return['numlikes'];
 
         // Getting if the user that he's visiting the profile has putted a like for a tweet
         $query=$mysqli->prepare("SELECT COUNT(*) as isliked FROM tweets_likes WHERE tweets_likes.tweet_id=? and tweets_likes.user_id=?");
-        $query->bind_param("ss",$a['tweets.id'],$id);
+        $query->bind_param("ss",$a['id'],$id);
         $query->execute();
         $return=$query->get_result()->fetch_assoc();
 
