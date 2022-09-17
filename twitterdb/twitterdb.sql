@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 16, 2022 at 10:42 AM
+-- Generation Time: Sep 17, 2022 at 08:06 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `blockers` (
-  `users_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `user_blocking` int(11) NOT NULL,
   `created_at` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -37,8 +37,9 @@ CREATE TABLE `blockers` (
 -- Dumping data for table `blockers`
 --
 
-INSERT INTO `blockers` (`users_id`, `user_blocking`, `created_at`) VALUES
+INSERT INTO `blockers` (`user_id`, `user_blocking`, `created_at`) VALUES
 (8, 3, NULL),
+(9, 10, NULL),
 (10, 3, NULL);
 
 -- --------------------------------------------------------
@@ -58,10 +59,9 @@ CREATE TABLE `followers` (
 --
 
 INSERT INTO `followers` (`user_id`, `user_following`, `created_at`) VALUES
-(1, 2, NULL),
 (1, 3, NULL),
 (1, 5, NULL),
-(2, 1, NULL),
+(2, 3, '2022-09-16'),
 (2, 6, NULL),
 (2, 10, NULL),
 (3, 1, NULL),
@@ -76,8 +76,7 @@ INSERT INTO `followers` (`user_id`, `user_following`, `created_at`) VALUES
 (7, 4, NULL),
 (8, 2, NULL),
 (8, 9, NULL),
-(9, 2, NULL),
-(9, 10, NULL);
+(9, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -107,9 +106,8 @@ INSERT INTO `tweets` (`id`, `text`, `created_at`, `user_id`) VALUES
 --
 
 CREATE TABLE `tweets_likes` (
-  `id` int(11) NOT NULL,
   `created_at` date DEFAULT NULL,
-  `tweets_id` int(11) NOT NULL,
+  `tweet_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -117,11 +115,11 @@ CREATE TABLE `tweets_likes` (
 -- Dumping data for table `tweets_likes`
 --
 
-INSERT INTO `tweets_likes` (`id`, `created_at`, `tweets_id`, `user_id`) VALUES
-(1, NULL, 1, 1),
-(2, NULL, 1, 10),
-(3, NULL, 2, 4),
-(4, NULL, 2, 8);
+INSERT INTO `tweets_likes` (`created_at`, `tweet_id`, `user_id`) VALUES
+(NULL, 1, 1),
+(NULL, 1, 10),
+(NULL, 2, 4),
+(NULL, 2, 8);
 
 -- --------------------------------------------------------
 
@@ -188,7 +186,7 @@ INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `username`, `pass
 -- Indexes for table `blockers`
 --
 ALTER TABLE `blockers`
-  ADD PRIMARY KEY (`users_id`,`user_blocking`);
+  ADD PRIMARY KEY (`user_id`,`user_blocking`);
 
 --
 -- Indexes for table `followers`
@@ -206,7 +204,7 @@ ALTER TABLE `tweets`
 -- Indexes for table `tweets_likes`
 --
 ALTER TABLE `tweets_likes`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`tweet_id`,`user_id`);
 
 --
 -- Indexes for table `tweets_pictures`
@@ -229,12 +227,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `tweets`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tweets_likes`
---
-ALTER TABLE `tweets_likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tweets_pictures`
