@@ -168,6 +168,93 @@ p {
 .checkbox{
     width: 300px;
 }
+/* css for Profile Page */
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.header{
+    display: flex;
+    width:  70%;
+}
+.arrow-back{
+    display: block;
+    color: #aaaaaa;
+    font-size: 50px;
+    font-weight: bold;
+}
+.Name{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+.Name > p {
+    margin-left: 20px;
+    font-family: Arial, Helvetica, sans-serif; 
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+}
+.Name>h5{
+    margin-left: 20px;
+}
+.cover-photo{
+    width: 850px;
+    height: 300px;
+}
+.Profil-picture{
+    position: absolute;
+    top: 300px;
+    left: 250px;
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+}
+.Profile{
+    height: 100px;
+    width: 100%;
+}
+.profile-informations{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    padding: 0 100px;
+    gap: 10px;
+}
+.profile-informations > p {
+    font-family: Arial, Helvetica, sans-serif; 
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+}
+.profile-informations > h4 {
+    font-family: Arial, Helvetica, sans-serif; 
+    font-size: 15px;
+}
+.Follow-info{
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+}
+.profile-info{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.Follow-info > h5 {
+    font-family: Arial, Helvetica, sans-serif; 
+    font-size: 20px;
+    font-weight: bold;
+}
+.edit-profile{
+    padding: 10px 15px;
+    background-color: rgb(103, 144, 255);
+    color: white;
+    border-radius: 10px;
+    border: 1px solid black;
+}
 /* media query */
 @media (min-width: 768px) {
     .login-page {
