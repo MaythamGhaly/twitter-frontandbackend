@@ -1,10 +1,12 @@
 // Since we are working with local storage, we need to check if the user has checked remember me before, either in sign in
 // or in signup with new account
-if(!localStorage.getItem("remember_me")==null){
+if(!localStorage.getItem("remember_me")==null || localStorage.getItem("remember_me")=='true'){
     // Here the user is clicked on remember me. Hence, we have to redirect him/her to the feeds page.
-
 }else{
+    // We have to clear local storage if user didn't check remember me checkbox.
+    localStorage.clear();
     // Popup of register
+    // Defining all elemnts
     const first_name=document.getElementById('first_name');
     const last_name=document.getElementById('last_name');
     const username=document.getElementById('username');
@@ -19,35 +21,43 @@ if(!localStorage.getItem("remember_me")==null){
     let cover_base64 = "";
     let profile_base64 = "";
 
+    // Add color red for some exceptions
     const addColorRed=(input,placeholder)=>{
         input.classList.add('red-color-text');
         input.placeholder=placeholder;
     };
+    // Remove color red when exception is gone
     const removeColorRed=(input,placeholder)=>{
         input.classList.remove('red-color-text');
         input.placeholder=placeholder;
     };
+    // Put some coditions at each enrty
     const checkEntries = ()=>{
+        // First name must be not empty and more than 2 characters
         if(first_name.value==''){
             addColorRed(first_name,"Required *");
         }else if(first_name.value.length<=2){
             first_name.value="";
             addColorRed(first_name,"Invalid Name");
+            // Last name must be not empty and more than 2 characters
         }else if(last_name.value==''){
             addColorRed(last_name,"Required *");
         }else if(last_name.value.length<=2){
             last_name.value="";
             addColorRed(last_name,"Invalid Family");
+            // username must be not empty and more than 2 characters
         }else if(username.value==''){
             addColorRed(username,"Required *");
         }else if(username.value.length<=2 ||username.value.includes('@')){
             username.value="";
             addColorRed(username,"Invalid Username");
+            // Email must be not empty and more than 5 characters and valid
         }else if(email.value==''){
             addColorRed(email,"Required *");
         }else if(email.value.length<=6 || !email.value.includes('@')){
             email.value="";
             addColorRed(email,"Invalid Email");
+            // Password and re-enter password section must be not empty and more than 4 characters
         } else if(password.value==''){
             addColorRed(password,"Required *");
         }else if(password.value.length<5){
@@ -58,17 +68,17 @@ if(!localStorage.getItem("remember_me")==null){
         }else if(re_password.value.length<5){
             re_password.value="";
             addColorRed(password,"Invalid Password");
+            // Password and re-enter password must be equal
         } else if(re_password.value!=password.value){
             re_password.value="";
             password.value="";
             addColorRed(password,"Must be equal");
             addColorRed(re_password,"Must be equal");
+            // Add user after picking up cover and profile
         }else {
             try{
                 pick_up_files.innerText=""
                 pick_up_files.style.fontSize="0vw";
-                console.log(cover_base64);
-                console.log(profile_base64);
                 addUser(cover_base64,profile_base64);
             }catch(err){
                 console.log(err.message);
@@ -79,13 +89,10 @@ if(!localStorage.getItem("remember_me")==null){
         }
     }
     
-
-    function pickUpProfile(){
+    //The below function will let the profile image to convert to Base64 
+    let pickUpProfile =()=>{
         let file = btn_profile_picture['files'][0];
-    
         let reader = new FileReader();
-        console.log("next");
-        
         reader.onload = function () {
             profile_base64 = reader.result.replace("data:", "")
                 .replace(/^.+,/, "");
@@ -94,12 +101,10 @@ if(!localStorage.getItem("remember_me")==null){
         reader.readAsDataURL(file);
         return profile_base64;
     }
-    function pickUpCover(){
+    //The below function will let the cover image to convert to Base64 
+    let pickUpCover =()=>{
         let file = btn_cover_picture['files'][0];
-    
         let reader = new FileReader();
-        console.log("next");
-        
         reader.onload = function () {
             cover_base64 = reader.result.replace("data:", "")
                 .replace(/^.+,/, "");
@@ -107,8 +112,10 @@ if(!localStorage.getItem("remember_me")==null){
         reader.readAsDataURL(file);
         return cover_base64;
     }
+
     btn_profile_picture.addEventListener("change",pickUpProfile);
     btn_cover_picture.addEventListener('change',pickUpCover);
+    // In the following functions, in case an exception is required, it will be gone by clicking on each.
     first_name.addEventListener('click',function(){
         removeColorRed(first_name,"First name");
     });
@@ -130,7 +137,7 @@ if(!localStorage.getItem("remember_me")==null){
     register.addEventListener('click',checkEntries);
 
     }
-   
+    //send     
     const addUser=(cover_base64,profile_base64)=>{
         let url = "http://localhost/twitter-frontandbackend/php/adduser.php";
         let parameters = {
@@ -148,5 +155,23 @@ if(!localStorage.getItem("remember_me")==null){
         };
         fetch(url,parameters)
         .then(respone=>respone.json())
-        .then(data=>console.log(data));
+        .then(data=>{
+            if(Object.values(data)[0]=="done"){
+                // In case the firt response is done, we need to check if user has checked remember me checkbox.
+                // Hence, next time we will direct him to the feeds page
+                if(remember_me.checked){
+                    localStorage.setItem("remember_me","true");
+                    
+                }else{
+                    localStorage.setItem("remember_me","false");
+                }
+                localStorage.setItem("id",Object.values(data)[1]);
+            }else{
+                // In case the first response is not done, so it will be is_registered, which means that this email is
+                // existed before.
+                email.value="";
+                email.classList.add('red-color-text');
+                email.placeholder="Registered before";
+            }
+        });
     }
