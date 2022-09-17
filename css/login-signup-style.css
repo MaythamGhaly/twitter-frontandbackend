@@ -449,21 +449,53 @@ p {
     .Tweet{
         width: 50%;
     }
-    /* media query for edit popup */
-    /* .edit-popup{
-        display: none;
-        position: fixed;
-        height: 600px;
-        z-index: 1;
-        padding: 25px 250px;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.4);
+    /* css for the feed page */
+    .left-section{
+        width: 28vw;
     }
-    .edit-content{
-        border: 1px solid black;
-    } */
+    .feed-logo{
+        width: 28vw;
+        height: 20vh;
+    }
+    .feed-profile{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center
+    }
+    .feed-img{
+        width: 130px;
+        height: 130px;
+        border-radius: 100px;
+    }
+    .search{
+        width: 28vw;
+    }
+    .search-input, .search-user {
+        width: 100%;
+    }
+    .img-search{
+        width: 40px;
+        height: 40px;
+        border-radius: 100px;
+    }
+    .search-user{
+        display: flex;
+        width: 100%;
+        background-color:rgb(103, 144, 255) ;
+    }
+    .search-name{
+        width:23vw;
+        display: flex;
+        justify-content: space-between;
+    }
+    .user-info{
+        display: flex;
+        width: 23vw;
+    }
+    .user-info > p{
+        font-size: 10px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #000;
+    }
 }
