@@ -15,7 +15,7 @@ if(isset($_GET['id'])){
     COUNT( CASE WHEN `followers`.user_following = ? THEN 1 END ) AS followers 
     FROM users,followers
     WHERE `users`.`id`=? LIMIT 1");
-    $query->bind_param("sss",$id,$id,$id);
+    $query->bind_param("sss",$id,$id,$other_id);
     $query->execute();
     $array_profile=$query->get_result()->fetch_assoc();
 
@@ -39,17 +39,33 @@ if(isset($_GET['id'])){
     // response_tweets is the array containing all the data about all tweets
     $response_tweets=[];
     // Now, we are getting data of the tweets in addition to the number of likes of each form another table which is tweets_likes.
-    $query=$mysqli->prepare("SELECT tweets.id,tweets.text,tweets.created_at,COUNT(tweets.id) as likes ,COUNT( CASE WHEN tweets_likes.user_id = ? THEN 1 END ) AS liked FROM tweets,tweets_likes WHERE tweets.user_id=? AND tweets.id=tweets_likes.tweets_id GROUP BY tweets.id ORDER BY tweets.created_at DESC");
-    $query->bind_param("ss",$id,$id);
+    $query=$mysqli->prepare("SELECT tweets.id,tweets.text,tweets.created_at
+    FROM tweets
+    WHERE tweets.user_id=?;");
+    $query->bind_param("s",$other_id);
     $query->execute();
     $array_tweets=$query->get_result();
-
+// adaddasdassaddasdas
     while($a = $array_tweets->fetch_assoc()){
         $response_tweets_data['id']=$a['id'];
         $response_tweets_data['text']=$a['text'];
         $response_tweets_data['created_at']=$a['created_at'];
-        $response_tweets_data['likes']=$a['likes'];
-        $response_tweets_data['liked']=$a['liked'];
+        $query=$mysqli->prepare("SELECT COUNT(*) as numlikes FROM tweets_likes WHERE tweets_likes.tweet_id=?");
+        $query->bind_param("s",$a['tweets.id']);
+        $query->execute();
+        $return=$query->get_result()->fetch_assoc();
+        $response_tweets_data['numlikes']=$return['numlikes'];
+
+        $query=$mysqli->prepare("SELECT COUNT(*) as isliked FROM tweets_likes WHERE tweets_likes.tweet_id=? and tweets_likes.user_id=?");
+        $query->bind_param("ss",$a['tweets.id'],$id);
+        $query->execute();
+        $return=$query->get_result()->fetch_assoc();
+
+        if($return['isliked']==0){
+            $response_tweets_data['isliked']='notliked';
+        }else{
+            $response_tweets_data['isliked']='isliked';
+        }
         // Now, we want to get the pictures' urls of every tweet and put them inside response_tweets_data
         $query=$mysqli->prepare("SELECT picture_url FROM tweets_pictures WHERE tweets_id=?");
         $query->bind_param("s",$a['id']);

@@ -3,7 +3,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
 header('Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorization, X-Request-With');
 include("connection.php");
-if(isset($_GET['id'])){
+// if(isset($_GET['id'])){
     $id=$_GET['id'];
     $query=$mysqli->prepare("SELECT DISTINCT tweets.id,tweets.text,tweets.created_at,tweets.user_id
      FROM tweets,followers
@@ -18,10 +18,10 @@ if(isset($_GET['id'])){
      $resonse_tweets=[];
      $response=[];
      while($a=$array->fetch_assoc()){
-        $resonse_tweets['tweets.id']=$a['tweets.id'];
-        $resonse_tweets['tweets.text']=$a['tweets.text'];
-        $resonse_tweets['tweets.created_at']=$a['tweets.created_at'];
-        $resonse_tweets['tweets.user_id']=$a['tweets.user_id'];
+        $resonse_tweets['id']=$a['id'];
+        $resonse_tweets['text']=$a['text'];
+        $resonse_tweets['created_at']=$a['created_at'];
+        $resonse_tweets['user_id']=$a['user_id'];
      }
      $response['tweets']=$resonse_tweets;
      echo json_encode($response);
