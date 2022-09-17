@@ -30,6 +30,7 @@ if(isset($_GET['id'])){
     $response["last_name"]= $array_profile['last_name'];
     $response["profile_picture_url"]= $array_profile['profile_picture_url'];
     $response["cover_picture_url"]= $array_profile['cover_picture_url'];
+    $response["username"]= $array_profile['username'];
     $response["created_at"]= $array_profile['created_at'];
     $response["following"]= $array_profile['following'];
     $response["followers"]= $array_profile['followers'];
