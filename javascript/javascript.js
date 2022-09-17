@@ -8,7 +8,7 @@ window.onload = () => {
     const close = document.getElementById("close")
     const close_signup = document.getElementById("close-signup")
     let btnstatus=false
-
+    // signin popup
     if (x.matches ) {
         btn_signin.addEventListener("click", () => {
             btnstatus=true
@@ -43,7 +43,7 @@ window.onload = () => {
             })
         }
     });
-
+    // signup popup
     if (x.matches ) {
         btn_signup.addEventListener("click", () => {
             btnstatus=true
@@ -69,7 +69,7 @@ window.onload = () => {
     }
     window.addEventListener('resize', () => {
         if (btnstatus && x.matches) {
-            signup.style.display = "none"
+            signin.style.display = "none"
             close_signup.addEventListener("click", () => {
                 pop_signup.style.display = "none"
             })

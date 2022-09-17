@@ -19,7 +19,7 @@
                                 <h1>Happening now</h1>
                                 <p>Join Twitter today.</p>
                                 <div class="btn-section">
-                                    <button class="signup-btn" id="signup-btn" >
+                                    <button class="signup-btn" id="signup-btn">
                                         Signup with email
                                     </button>
                                     <h6>By signing up, you agree to the Terms of Service and Privacy Policy, including
@@ -60,13 +60,16 @@
             </div>
         </div>
         <div class="pop-up" id="pop-signin">
+
             <div class="popup-content">
-                <span class="close" id="close">&times;</span>
+                <div class="close-popup">
+                    <span class="close" id="close">&times;</span>
+                </div>
                 <img src="./images/Twitter-logo-login.png" class="logo-signin">
                 <p>Sign in to Twitter</p>
-                <input class="signin-input" placeholder="Enter your email">
-                <input class="signin-input" placeholder="Enter your Password">
-                <button class="Login-btn" >
+                <input class="input" placeholder="Enter your email">
+                <input class="input" placeholder="Enter your Password">
+                <button class="Login-btn">
                     Login
                 </button>
                 <h5>Don't have an account?<a href="#"> Sign up</a> </h5>
@@ -74,14 +77,28 @@
         </div>
         <div class="pop-signup" id="pop-signup">
             <div class="popup-content">
-                <span class="close" id="close-signup">&times;</span>
+                <div class="close-popup">
+                    <span class="close" id="close-signup">&times;</span>
+                </div>
                 <img src="./images/Twitter-logo-login.png" class="logo-signin">
                 <p>Create your account</p>
-                <input class="signin-input" placeholder="Enter your email">
-                <input class="signin-input" placeholder="Enter your Password">
-                <input class="signin-input" placeholder="Enter your Password">
-                <input class="signin-input" placeholder="Enter your Password">
-                <button class="Login-btn" >
+                <div class="flex">
+                    <input class="small-input" placeholder="Name">
+                    <input class="small-input" placeholder="Last name">
+                </div>
+                <input class="input" placeholder="Username">
+                <input class="input" placeholder="Email">
+                <input class="input" placeholder="Password">
+                <input class="input" placeholder="Re-enter your Password">
+                <div class="flex">
+                    <button class="btn">Profile picture</button>
+                    <button class="btn">Cover picture</button>
+                </div>
+                <div class="flex checkbox" >
+                    <input type="checkbox">
+                    <label>Remembre me ?</label>
+                </div>
+                <button class="Login-btn">
                     Register
                 </button>
             </div>
