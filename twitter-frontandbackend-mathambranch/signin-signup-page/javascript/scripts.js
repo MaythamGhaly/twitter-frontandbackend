@@ -1,12 +1,16 @@
 // Since we are working with local storage, we need to check if the user has checked remember me before, either in sign in
 // or in signup with new account
+
 if(!localStorage.getItem("remember_me")==null || localStorage.getItem("remember_me")=='true'){
     // Here the user is clicked on remember me. Hence, we have to redirect him/her to the feeds page.
+    
+    // TODO:redirect user to feeds page
 }else{
     // We have to clear local storage if user didn't check remember me checkbox.
     localStorage.clear();
     // Popup of register
     // Defining all elemnts
+    // Contents of register pop up
     const first_name=document.getElementById('first_name');
     const last_name=document.getElementById('last_name');
     const username=document.getElementById('username');
@@ -136,7 +140,7 @@ if(!localStorage.getItem("remember_me")==null || localStorage.getItem("remember_
     });
     register.addEventListener('click',checkEntries);
 
-    }
+    
     //send     
     const addUser=(cover_base64,profile_base64)=>{
         let url = "http://localhost/twitter-frontandbackend/php/adduser.php";
@@ -166,6 +170,7 @@ if(!localStorage.getItem("remember_me")==null || localStorage.getItem("remember_
                     localStorage.setItem("remember_me","false");
                 }
                 localStorage.setItem("id",Object.values(data)[1]);
+                // TODO:redirect user to feeds page
             }else{
                 // In case the first response is not done, so it will be is_registered, which means that this email is
                 // existed before.
@@ -173,5 +178,60 @@ if(!localStorage.getItem("remember_me")==null || localStorage.getItem("remember_
                 email.classList.add('red-color-text');
                 email.placeholder="Registered before";
             }
+        });}
+
+        // Pop up of sign in
+        // Contents of sign in pop up
+        const email_sign_in=document.getElementById('email_sign_in');
+        const password_sign_in=document.getElementById('password_sign_in');
+        const remember_me_sign_in=document.getElementById('remember_me_sign_in');
+        const login=document.getElementById('login');
+        let checkEmailPassword = ()=>{
+            console.log('hy');
+            if(email_sign_in.value==''){
+                addColorRed(email_sign_in,"Required *");
+            }else if(password_sign_in.value==''){
+                addColorRed(password_sign_in,"Required *");
+            }else{
+                let url = "http://localhost/twitter-frontandbackend/php/login.php";
+                let parameters = {
+                    method:'POST',
+                    body: new URLSearchParams({
+                        email:email_sign_in.value,
+                        password:password_sign_in.value
+                    })
+                };
+                fetch(url,parameters)
+                .then(respone=>respone.json())
+                .then(data=>{
+                    if(Object.values(data)[0]=="registered"){
+                        // In case the firt response is registered, we need to check if user has checked remember me checkbox.
+                        // Hence, next time we will direct him to the feeds page
+                        if(remember_me_sign_in.checked){
+                            localStorage.setItem("remember_me","true");
+                        }else{
+                            localStorage.setItem("remember_me","false");
+                        }
+                        localStorage.setItem("id",Object.values(data)[1]);
+                        // TODO:redirect user to feeds page
+                    }else{
+                        // In case the first response is not registered so, that means either email or password is wrong
+                        email_sign_in.value="";
+                        password_sign_in.value="";
+                        email_sign_in.classList.add('red-color-text');
+                        email_sign_in.placeholder="Wrong email or password";
+                        password_sign_in.classList.add('red-color-text');
+                        password_sign_in.placeholder="Wrong email or password";
+                    }
+                    console.log(data);
+                });
+            }
+        }
+        email_sign_in.addEventListener('click',function(){
+            removeColorRed(email_sign_in,"Enter your email");
         });
+        password_sign_in.addEventListener('click',function(){
+            removeColorRed(password_sign_in,"Enter your Password");
+        })
+        login.addEventListener('click',checkEmailPassword);
     }
