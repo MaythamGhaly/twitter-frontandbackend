@@ -355,15 +355,18 @@ p {
     min-height: 550px;
 }
 .label{
-    padding: 10px 20px;
+    justify-self: center;
 }
 .edit-section{
     display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    flex-direction: column;
     width: 500px;
-    justify-content: space-between;
+    align-items: center;
 }
 .remove-btn{
-    padding: 5px 10px;
+    padding: 7px 50px;
     border-radius: 20px;
 }
 .submit{
