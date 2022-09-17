@@ -22,11 +22,11 @@
         // $response[0]=$profile_data;
         // $response[1]=$profile_data1;
         // echo json_encode($response);
-        $response=[];
-        $response["status"]='done';
-        $response["status1"]='done';
-        // $response["id"]=$id;
-        echo json_encode($response);
+        // $response=[];
+        // $response["status"]='done';
+        // $response["status1"]='done';
+        // // $response["id"]=$id;
+        // echo json_encode($response);
         $image = "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAFA3PEY8MlBGQUZaVVBfeMiCeG5uePWvuZHI////////
         ////////////////////////////////////////////2wBDAVVaWnhpeOuCguv/////////////
         ////////////////////////////////////////////////////////////wAARCAEsASwDASIA
@@ -57,5 +57,7 @@
         AKIAogCiAKIAogCiAKIAogCiAKIAogCiAKIAogCscu6l7AxAAWIAogCiAKIAogCiAKIAogCiAKIA
         ogCiAKIAogCiAKIAogCiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/Z
         ";
-
+        date_default_timezone_set('Asia/Beirut');
+        $current_time = date ("Y-m-d H:m:s");
+        echo $current_time;
 ?>
