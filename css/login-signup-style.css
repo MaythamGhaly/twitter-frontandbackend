@@ -376,6 +376,122 @@ p {
 .file{
     padding-top: 10px;
 }
+
+
+
+.feed-container{
+    display: flex;
+}
+.left-section{
+    display: none;
+    width: 28vw;
+}
+.feed-logo{
+    width: 28vw;
+    height: 20vh;
+}
+.feed-profile{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center
+}
+.feed-profile > p {
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000;
+    font-weight: bold;
+}
+.feed-img{
+    width: 130px;
+    height: 130px;
+    border-radius: 100px;
+}
+.search{
+    width: 28vw;
+}
+.search-input, .search-user {
+    width: 100%;
+    height: 50px;
+    border-radius: 20px;
+    padding-left: 10px;
+}
+.img-search{
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+}
+.search-user{
+    display: flex;
+    width: 100%;
+    background-color:rgb(103, 144, 255) ;
+    align-items: center;
+}
+.search-name{
+    width:23vw;
+    display: flex;
+    justify-content: space-between;
+}
+.search-name > p{
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+.Follow-user{
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: white;
+}
+.user-info{
+    display: flex;
+    width: 23vw;
+}
+.user-info > p{
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(255, 255, 255);
+}
+.right-section{
+    margin-left: 30px;
+    width: 100vw;
+
+}
+.tweet-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.tweet-section >p{
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000;
+    font-weight: bold;
+}
+.tweet-input{
+    width: 80%;
+    height: 150px;
+    border-radius: 30px;
+}
+.tweet-btn{
+    margin-right: 30px;
+    align-self: flex-end;
+    padding: 10px 30px;
+    border-radius: 20px;
+    background-color:rgb(103, 144, 255) ;
+    color: white;
+    margin-bottom: 50px;
+}
+.tweet-text{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.Tweet-feed{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-right: 50px;
+}
 /* media query */
 @media (min-width: 768px) {
     .login-page {
@@ -451,51 +567,12 @@ p {
     }
     /* css for the feed page */
     .left-section{
-        width: 28vw;
+        display: block;
     }
-    .feed-logo{
-        width: 28vw;
-        height: 20vh;
+    .right-section{
+        width: 72vw;
     }
-    .feed-profile{
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center
-    }
-    .feed-img{
-        width: 130px;
-        height: 130px;
-        border-radius: 100px;
-    }
-    .search{
-        width: 28vw;
-    }
-    .search-input, .search-user {
-        width: 100%;
-    }
-    .img-search{
-        width: 40px;
-        height: 40px;
-        border-radius: 100px;
-    }
-    .search-user{
-        display: flex;
-        width: 100%;
-        background-color:rgb(103, 144, 255) ;
-    }
-    .search-name{
-        width:23vw;
-        display: flex;
-        justify-content: space-between;
-    }
-    .user-info{
-        display: flex;
-        width: 23vw;
-    }
-    .user-info > p{
-        font-size: 10px;
-        font-family: Arial, Helvetica, sans-serif;
-        color: #000;
+    .Tweet-feed{
+        width: 80%;
     }
 }
