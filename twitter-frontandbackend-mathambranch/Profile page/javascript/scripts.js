@@ -5,8 +5,8 @@ const Profil_picture=document.getElementById("Profil_picture");
 const full_name=document.getElementById("full_name");
 const username=document.getElementById("username");
 const join_date=document.getElementById("join_date");
-const following_numer=document.getElementById("following_numer");
-const join_date=document.getElementById("join_date");
+const following_number=document.getElementById("following_number");
+const follwer_number=document.getElementById("follwer_number");
 
 let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${localStorage.getItem("id")}&other_id=${localStorage.getItem("id")}`;
     fetch(url)
@@ -32,5 +32,13 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
         const date= Object.values(data)[5];
         const array=date.split("-");
         join_date.innerText=`Joined ${array[2]},${toMonthName(array[1])} ${array[0]}`;
-        console.log(Object.values(data)[6]);
+        following_number.innerText=`${Object.values(data)[6]} Following`
+        follwer_number.innerText=`${Object.values(data)[7]} Followers`
+        console.log(Object.values(data)[8].length);
+        if(Object.values(data)[8].length<=1){
+            tweets_number.innerText=`${Object.values(data)[8].length} Tweet`
+        }else{
+            tweets_number.innerText=`${Object.values(data)[8].length} Tweets`
+        }
+        
     });
