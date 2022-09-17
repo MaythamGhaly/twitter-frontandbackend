@@ -16,10 +16,8 @@ if(!localStorage.getItem("remember_me")==null){
     const pick_up_files=document.getElementById("pick_up_files");
     const btn_profile_picture = document.getElementById("btn_profile_picture");
     const btn_cover_picture = document.getElementById("btn_cover_picture");
-    btn_cover_picture
-    let profile_base64= "";
-    let cover_base64= "";
-   
+    let cover_base64 = "";
+    let profile_base64 = "";
 
     const addColorRed=(input,placeholder)=>{
         input.classList.add('red-color-text');
@@ -30,7 +28,6 @@ if(!localStorage.getItem("remember_me")==null){
         input.placeholder=placeholder;
     };
     const checkEntries = ()=>{
-
         if(first_name.value==''){
             addColorRed(first_name,"Required *");
         }else if(first_name.value.length<=2){
@@ -50,7 +47,7 @@ if(!localStorage.getItem("remember_me")==null){
             addColorRed(email,"Required *");
         }else if(email.value.length<=6 || !email.value.includes('@')){
             email.value="";
-            addColorRed(email,"Invalid Username");
+            addColorRed(email,"Invalid Email");
         } else if(password.value==''){
             addColorRed(password,"Required *");
         }else if(password.value.length<5){
@@ -70,8 +67,8 @@ if(!localStorage.getItem("remember_me")==null){
             try{
                 pick_up_files.innerText=""
                 pick_up_files.style.fontSize="0vw";
-               cover_base64= pickCover(cover_base64);
-               profile_base64= pickProfile(profile_base64);
+                console.log(cover_base64);
+                console.log(profile_base64);
                 addUser(cover_base64,profile_base64);
             }catch(err){
                 console.log(err.message);
@@ -81,6 +78,37 @@ if(!localStorage.getItem("remember_me")==null){
             }
         }
     }
+    
+
+    function pickUpProfile(){
+        let file = btn_profile_picture['files'][0];
+    
+        let reader = new FileReader();
+        console.log("next");
+        
+        reader.onload = function () {
+            profile_base64 = reader.result.replace("data:", "")
+                .replace(/^.+,/, "");
+            
+        }
+        reader.readAsDataURL(file);
+        return profile_base64;
+    }
+    function pickUpCover(){
+        let file = btn_cover_picture['files'][0];
+    
+        let reader = new FileReader();
+        console.log("next");
+        
+        reader.onload = function () {
+            cover_base64 = reader.result.replace("data:", "")
+                .replace(/^.+,/, "");
+        }
+        reader.readAsDataURL(file);
+        return cover_base64;
+    }
+    btn_profile_picture.addEventListener("change",pickUpProfile);
+    btn_cover_picture.addEventListener('change',pickUpCover);
     first_name.addEventListener('click',function(){
         removeColorRed(first_name,"First name");
     });
@@ -102,27 +130,7 @@ if(!localStorage.getItem("remember_me")==null){
     register.addEventListener('click',checkEntries);
 
     }
-
-    const pickProfile = (profile_base64)=>{
-        let file = btn_profile_picture['files'][0];
-        let reader = new FileReader();
-        reader.onload = function () {
-            profile_base64 = reader.result.replace("data:", "")
-                .replace(/^.+,/, "");
-        }
-        reader.readAsDataURL(file);
-        return profile_base64;
-    }
-    const pickCover = (cover_base64)=>{
-        let file = btn_cover_picture['files'][0];
-        let reader = new FileReader();
-        reader.onload = function () {
-            cover_base64 = reader.result.replace("data:", "")
-                .replace(/^.+,/, "");
-        }
-        reader.readAsDataURL(file);
-        return cover_base64;
-    }
+   
     const addUser=(cover_base64,profile_base64)=>{
         let url = "http://localhost/twitter-frontandbackend/php/adduser.php";
         let parameters = {
@@ -135,8 +143,9 @@ if(!localStorage.getItem("remember_me")==null){
                 password:password.value,
                 profile_picture:profile_base64,
                 cover_picture:cover_base64
+                
             })
-        }
+        };
         fetch(url,parameters)
         .then(respone=>respone.json())
         .then(data=>console.log(data));
