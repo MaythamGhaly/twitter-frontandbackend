@@ -8,7 +8,7 @@
     </head>
 
     <body>
-        <div class="container">
+        <div class="container" id="container">
             <div class="header">
                 <span class="arrow-back">&larr;</span>
                 <div class="Name">
@@ -28,14 +28,59 @@
                 <h4>Join Date</h4>
                 <div class="profile-info">
                     <div class="Follow-info">
-                    <h5>  # Following </h5>
-                    <h5>  # Followers </h5>
+                        <h5> # Following </h5>
+                        <h5> # Followers </h5>
                     </div>
-                    <button class="edit-profile">Edit Profile</button>
+                    <button class="edit-profile" id="edit">Edit Profile</button>
                 </div>
-                <div class="Tweet" id="Tweet">
-                    
+            </div>
+            <div class="Tweet-title">Your Tweet</div>
+            <div class="Tweet" id="Tweet">
+                <div class="tweet-header">
+                    <img src="./images/PP.png" class="tweet-profile">
+                    <div class="name-date">
+                        <p>Name</p>
+                        <h6>Date</h6>
+                    </div>
                 </div>
+                <div class="tweet-text">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Fermentum odio eu feugiat pretium. Quam viverra orci sagittis eu
+                        volutpat odio. Tincidunt vitae semper quis lectus. Vestibulum mattis ullamcorper velit sed
+                        ullamcorper morbi tincidunt. Vulputate ut pharetra sit amet aliquam id.</p>
+                    <div class="images">
+                        <img src="./images/imag1.jpg" class="tweet-img">
+                        <img src="./images/imag2.jpg" class="tweet-img">
+                    </div>
+                </div>
+                <div class="likes">
+                    <span class="heart">&#128420;</span>
+                    <p># Likes</p>
+                </div>
+            </div>
+        </div>
+        <div class="edit-popup" id="edit-popup">
+            <div class="edit-content">
+                <div class="close-popup">
+                    <span class="close" id="close">&times;</span>
+                </div>
+                <img src="../signin-signup-page/images/Twitter-logo-login.png" class="logo-signin">
+                <p>Edit your profile</p>
+                <div class="edit-section">
+                    <label for="img" class="label">Update profile:</label>
+                    <input class="file" type="file" id="img" name="img" accept="image/*">
+                    <button type="button" class="remove-btn">remove</button>
+                </div> 
+                <div class="edit-section">
+                    <label for="img" class="label">Update cover:</label>
+                    <input class="file" type="file" id="img" name="img" accept="image/*">
+                    <button class="remove-btn">remove</button>
+                </div>
+                <input class="input" placeholder="Change Username">
+                <input class="input" placeholder="Change Password">
+                <button class="submit">
+                    Submit
+                </button>
             </div>
         </div>
 

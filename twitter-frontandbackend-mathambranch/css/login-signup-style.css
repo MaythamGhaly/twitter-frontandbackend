@@ -71,6 +71,7 @@
 }
 .btn-section>h2 {
     margin-top: 100px;
+    margin-bottom: 40px;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -165,7 +166,6 @@ p {
     border-radius: 20px;
     border-style: 0px solid;
     cursor: pointer;
-    
 }
 .checkbox{
     width: 300px;
@@ -175,10 +175,11 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100vw;
 }
 .header{
     display: flex;
-    width:  70%;
+    width:  90vw;
 }
 .arrow-back{
     display: block;
@@ -203,25 +204,25 @@ p {
     margin-left: 20px;
 }
 .cover-photo{
-    width: 850px;
+    width: 100vw;
     height: 300px;
 }
 .Profil-picture{
     position: absolute;
     top: 300px;
-    left: 250px;
+    left: 30vw;
     width: 150px;
     height: 150px;
     border-radius: 100px;
 }
 .Profile{
-    height: 100px;
-    width: 100%;
+    height: 120px;
+    width: 100vw;
 }
 .profile-informations{
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 80vw;
     padding: 0 100px;
     gap: 10px;
 }
@@ -230,25 +231,30 @@ p {
     font-size: 25px;
     font-weight: bold;
     color: black;
+    min-width: 80px;
 }
 .profile-informations > h4 {
     font-family: Arial, Helvetica, sans-serif; 
     font-size: 15px;
+    min-width: 80px;
 }
 .Follow-info{
     display: flex;
     justify-content: space-evenly;
-    width: 50%;
+    flex-wrap: wrap;
+    width: 50vw;
+    align-content: center;
 }
 .profile-info{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
 }
 .Follow-info > h5 {
     font-family: Arial, Helvetica, sans-serif; 
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
+    min-width: 100px;
 }
 .edit-profile{
     padding: 10px 15px;
@@ -256,6 +262,120 @@ p {
     color: white;
     border-radius: 10px;
     border: 1px solid black;
+    min-width: 100px;
+    margin-top: 10px;
+}
+.Tweet{
+    text-align: center;
+    margin-top: 30px;
+    width: 90%;
+    border-bottom: 1px solid black;
+}
+.Tweet-title{
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: rgb(103, 144, 255);
+    margin-top: 50px;
+}
+.tweet-header{
+    display: flex;
+    text-align: center;
+}
+.name-date > p {
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #000;
+    margin: 15px 40px 2px;
+}
+.tweet-profile{
+    width: 50px;
+    height: 50px;
+    float: left;
+    border-radius: 100px;
+}
+.tweet-text{
+    margin: 20px 50px;
+    text-align: left;
+}
+.tweet-text >p {
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(0, 0, 0);
+}
+.likes{
+    display: flex;
+    float: left;
+}
+.likes > p{
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000;
+    margin: 7px;
+}
+.image{
+    margin-top: 50px;
+    height: 300px;
+}
+.images{
+    display: flex;
+    flex-wrap: wrap;
+}
+.heart{
+    width: 20px;
+    height: 20px;
+}
+/* following btn (show when the user Press on Follow button */
+.Following{
+    display: none;
+    padding: 10px 15px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    border: 1px solid rgb(103, 144, 255);
+    min-width: 100px;
+    margin-top: 10px;
+}
+/* edit popup */
+.edit-popup{
+    display: none;
+    height: 80vh;
+}
+.edit-content{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    width: 80%;
+    align-items: center;
+    border-radius: 20px;
+    min-width: 400px;
+    min-height: 550px;
+}
+.label{
+    justify-self: center;
+}
+.edit-section{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    flex-direction: column;
+    width: 500px;
+    align-items: center;
+}
+.remove-btn{
+    padding: 7px 50px;
+    border-radius: 20px;
+}
+.submit{
+    padding: 10px 50px;
+    border-radius: 20px;
+}
+.file{
+    padding-top: 10px;
 }
 /* media query */
 @media (min-width: 768px) {
@@ -314,6 +434,39 @@ p {
         text-decoration: none;
         cursor: pointer;
     }
+    /* media query for profile page */
+    .Profil-picture{
+        
+        left: 6vw;
+        width: 150px;
+        height: 150px;
+    }
+    .profile-informations{
+        width: 100vw;
+    }
+    .profile-info{
+        justify-content: space-between;
+    }
+    .Tweet{
+        width: 50%;
+    }
+    /* media query for edit popup */
+    /* .edit-popup{
+        display: none;
+        position: fixed;
+        height: 600px;
+        z-index: 1;
+        padding: 25px 250px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    .edit-content{
+        border: 1px solid black;
+    } */
 }
 /* Utilises */
 
