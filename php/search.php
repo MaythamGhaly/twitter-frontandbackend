@@ -10,7 +10,7 @@ if($_GET['id']){
     // Add % before and after keyword since we want the aproximately matches from table users.
     $keyword="%".$keyword."%";
     // The query below will get some data about users but without existing a user with searching user in blockers table.
-    // In addition, we shouldn't show the user himself/herself when he/she about to search for someone
+    // In addition, we shouldn't show the user himself/herself when he/she about to search for someone.
     $query=$mysqli->prepare("SELECT DISTINCT users.id,users.first_name,users.last_name,users.username,users.profile_picture_url
     FROM users,blockers
     WHERE (users.first_name LIKE ? OR users.last_name LIKE ? OR users.username LIKE ?) AND
