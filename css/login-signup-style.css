@@ -71,6 +71,7 @@
 }
 .btn-section>h2 {
     margin-top: 100px;
+    margin-bottom: 40px;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -173,10 +174,11 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100vw;
 }
 .header{
     display: flex;
-    width:  70%;
+    width:  90vw;
 }
 .arrow-back{
     display: block;
@@ -201,25 +203,25 @@ p {
     margin-left: 20px;
 }
 .cover-photo{
-    width: 850px;
+    width: 100vw;
     height: 300px;
 }
 .Profil-picture{
     position: absolute;
     top: 300px;
-    left: 250px;
+    left: 30vw;
     width: 150px;
     height: 150px;
     border-radius: 100px;
 }
 .Profile{
-    height: 100px;
-    width: 100%;
+    height: 120px;
+    width: 100vw;
 }
 .profile-informations{
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 80vw;
     padding: 0 100px;
     gap: 10px;
 }
@@ -228,25 +230,30 @@ p {
     font-size: 25px;
     font-weight: bold;
     color: black;
+    min-width: 80px;
 }
 .profile-informations > h4 {
     font-family: Arial, Helvetica, sans-serif; 
     font-size: 15px;
+    min-width: 80px;
 }
 .Follow-info{
     display: flex;
     justify-content: space-evenly;
-    width: 50%;
+    flex-wrap: wrap;
+    width: 50vw;
+    align-content: center;
 }
 .profile-info{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
 }
 .Follow-info > h5 {
     font-family: Arial, Helvetica, sans-serif; 
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
+    min-width: 100px;
 }
 .edit-profile{
     padding: 10px 15px;
@@ -254,6 +261,20 @@ p {
     color: white;
     border-radius: 10px;
     border: 1px solid black;
+    min-width: 100px;
+    margin-top: 10px;
+}
+.Tweet{
+    text-align: center;
+    margin-top: 30px;
+    width: 50%;
+}
+.Tweet-header{
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: rgb(103, 144, 255);
+    margin-top: 50px;
 }
 /* media query */
 @media (min-width: 768px) {
@@ -311,5 +332,18 @@ p {
         color: #000;
         text-decoration: none;
         cursor: pointer;
+    }
+    /* media query for profile page */
+    .Profil-picture{
+        
+        left: 6vw;
+        width: 150px;
+        height: 150px;
+    }
+    .profile-informations{
+        width: 100vw;
+    }
+    .profile-info{
+        justify-content: space-between;
     }
 }
