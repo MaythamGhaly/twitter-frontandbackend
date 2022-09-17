@@ -164,6 +164,7 @@ p {
     color: white;
     border-radius: 20px;
     border-style: 0px solid;
+    cursor: pointer;
 }
 .checkbox{
     width: 300px;
@@ -312,4 +313,12 @@ p {
         text-decoration: none;
         cursor: pointer;
     }
+}
+/* Utilises */
+
+.red-color-text{
+    color: red;
+}
+.red-color-text::placeholder{
+    color: red;
 }
