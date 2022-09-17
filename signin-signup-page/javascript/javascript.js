@@ -8,7 +8,8 @@ window.onload = () => {
     const close = document.getElementById("close")
     const close_signup = document.getElementById("close-signup")
     let btnstatus=false
-    // signin popup
+
+    // Fignin popup responsivity
     if (x.matches ) {
         btn_signin.addEventListener("click", () => {
             btnstatus=true
@@ -32,18 +33,26 @@ window.onload = () => {
             pop_signin.style.display = "none"
         })
     }
+    // Function to make the page responsive when the window resizing
     window.addEventListener('resize', () => {
         if (btnstatus && x.matches) {
             signin.style.display = "none"
             close.addEventListener("click", () => {
                 pop_signin.style.display = "none"
-            })
+                signin.style.display = "block"
+            })}
+        else if (btnstatus){
+            signin.style.display = "block"
+        }
+        else if (!btnstatus){
+            signin.style.display = "block"
             close.addEventListener("click", () => {
+                btnstatus=false
                 pop_signin.style.display = "none"
             })
         }
     });
-    // signup popup
+    // Signup popup responsivity
     if (x.matches ) {
         btn_signup.addEventListener("click", () => {
             btnstatus=true
@@ -67,20 +76,25 @@ window.onload = () => {
             pop_signup.style.display = "none"
         })
     }
+    // function to make the page responsive when the window resizing
     window.addEventListener('resize', () => {
         if (btnstatus && x.matches) {
             signin.style.display = "none"
-            close_signup.addEventListener("click", () => {
+            close.addEventListener("click", () => {
                 pop_signup.style.display = "none"
-            })
-            close_signup.addEventListener("click", () => {
+                signin.style.display = "block"
+            })}
+        else if (btnstatus){
+            signin.style.display = "block"
+        }
+        else if (!btnstatus){
+            signin.style.display = "block"
+            close.addEventListener("click", () => {
+                btnstatus=false
                 pop_signup.style.display = "none"
             })
         }
     });
-    
-
-
 }
     
 
