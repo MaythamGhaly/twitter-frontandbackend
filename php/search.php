@@ -31,11 +31,24 @@ if($_GET['id']){
         $response_data['last_name']=$a['last_name'];
         $response_data['username']=$a['username'];
         $response_data['profile_picture_url']=$a['profile_picture_url'];
+
+
         $query = $mysqli->prepare("SELECT COUNT(id) as tweet FROM tweets WHERE tweets.user_id=?");
         $query->bind_param("s",$a['id']);
         $query->execute();
         $return=$query->get_result()->fetch_assoc();
         $response_data['tweet']=$return['tweet'];
+        
+        
+        $query = $mysqli->prepare(" SELECT COUNT( CASE WHEN `followers`.user_id = ? THEN 1 END ) AS following,
+        COUNT( CASE WHEN `followers`.user_following = ? THEN 1 END ) AS followers 
+        FROM users,followers
+        WHERE `users`.`id`=? LIMIT 1");
+        $query->bind_param("sss",$a['id'],$a['id'],$a['id']);
+        $query->execute();
+        $return=$query->get_result()->fetch_assoc();
+        $response_data['following']=$return['following'];
+        $response_data['followers']=$return['followers'];
         $response[]=$response_data;
     }
     echo json_encode($response);
