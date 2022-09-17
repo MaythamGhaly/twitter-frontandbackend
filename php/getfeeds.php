@@ -3,19 +3,26 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
 header('Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorization, X-Request-With');
 include("connection.php");
-// if(isset($_GET['id'])){
+if(isset($_GET['id'])){
+    // Get id using GET method
     $id=$_GET['id'];
+
+    // The below query will get all the tweets for the users who follow each other
     $query=$mysqli->prepare("SELECT DISTINCT tweets.id,tweets.text,tweets.created_at,tweets.user_id
     FROM tweets,followers
     WHERE tweets.user_id IN 
     (SELECT followers.user_id from followers WHERE followers.user_following=?)
+    OR tweets.user_id IN
+    (SELECT followers.user_following from followers WHERE followers.user_following=?)
+    OR tweets.user_id IN
+    (SELECT followers.user_id from followers WHERE followers.user_id=?)
     OR tweets.user_id IN
     (SELECT followers.user_following from followers WHERE followers.user_id=?)
     OR tweets.user_id=?
     ORDER BY tweets.created_at DESC
      ");
 
-    $query->bind_param("sss",$id,$id,$id);
+    $query->bind_param("sssss",$id,$id,$id,$id,$id);
     $query->execute();
     $array=$query->get_result();
     $response=[];
@@ -26,6 +33,7 @@ include("connection.php");
         $response_tweets_data['text']=$a['text'];
         $response_tweets_data['created_at']=$a['created_at'];
         $response_tweets_data['user_id']=$a['user_id'];
+        
          // Getting the number of likes of each tweet
          $query=$mysqli->prepare("SELECT COUNT(*) as numlikes FROM tweets_likes WHERE tweets_likes.tweet_id=?");
          $query->bind_param("s",$a['id']);
@@ -44,7 +52,6 @@ include("connection.php");
          }else{
              $response_tweets_data['isliked']='isliked';
          }
-
 
          // Now, we want to get the pictures' urls of every tweet and put them inside response_tweets_data
         $query=$mysqli->prepare("SELECT picture_url FROM tweets_pictures WHERE tweets_id=?");
@@ -65,11 +72,5 @@ include("connection.php");
      }
      $response['tweets']=$response_tweets;
      echo json_encode($response);
-// }
-// SELECT DISTINCT tweets.id,tweets.text,tweets.created_at,tweets.user_id
-// FROM tweets,followers
-// WHERE tweets.user_id IN 
-// (SELECT followers.user_id from followers WHERE followers.user_id=1)
-// OR tweets.user_id IN
-// (SELECT followers.user_id from followers WHERE followers.user_following=1)
+}
 ?>
