@@ -1,7 +1,7 @@
 // Since we are working with local storage, we need to check if the user has checked remember me before, either in sign in
 // or in signup with new account
 if(!localStorage.getItem("remember_me")==null){
-    // Here the user is clicked on remember me. Hence, we have to redirect him/her to the feed page.
+    // Here the user is clicked on remember me. Hence, we have to redirect him/her to the feeds page.
 
 }else{
     // Popup of register
@@ -11,13 +11,12 @@ if(!localStorage.getItem("remember_me")==null){
     const email=document.getElementById('email');
     const password=document.getElementById('password');
     const re_password=document.getElementById('re_password');
-    const btn_profile_picture=document.getElementById('btn_profile_picture');
-    const btn_cover_picture=document.getElementById('btn_cover_picture');
     const remember_me=document.getElementById('remember_me');
     const register=document.getElementById('register');
-    const label_profile_picture=document.getElementById('label_profile_picture');
-    const label_cover_picture=document.getElementById('label_cover_picture');
     const pick_up_files=document.getElementById("pick_up_files");
+    const btn_profile_picture = document.getElementById("btn_profile_picture");
+    const btn_cover_picture = document.getElementById("btn_cover_picture");
+    btn_cover_picture
     let profile_base64= "";
     let cover_base64= "";
    
@@ -44,7 +43,7 @@ if(!localStorage.getItem("remember_me")==null){
             addColorRed(last_name,"Invalid Family");
         }else if(username.value==''){
             addColorRed(username,"Required *");
-        }else if(username.value.length<=2){
+        }else if(username.value.length<=2 ||username.value.includes('@')){
             username.value="";
             addColorRed(username,"Invalid Username");
         }else if(email.value==''){
@@ -71,11 +70,11 @@ if(!localStorage.getItem("remember_me")==null){
             try{
                 pick_up_files.innerText=""
                 pick_up_files.style.fontSize="0vw";
-                pickCover();
-                pickProfile();
-                console.log("done");
+               cover_base64= pickCover(cover_base64);
+               profile_base64= pickProfile(profile_base64);
+                addUser(cover_base64,profile_base64);
             }catch(err){
-                console.log("error");
+                console.log(err.message);
                 pick_up_files.style.color="red";
                 pick_up_files.innerText="Cover and profile are required."
                 pick_up_files.style.fontSize="2vw";
@@ -104,45 +103,41 @@ if(!localStorage.getItem("remember_me")==null){
 
     }
 
-
-    // const addUser = ()=>{
-    
-    //     let url = "";
-    //     let parameters = {
-    //         method:'POST',
-    //         body: new URLSearchParams({
-    //             //your parameters must be here
-    //         })
-    //     }
-    //     fetch(url,parameters)
-    //     .then(respone=>respone.json())
-    //     .then(data=>console.log(data));
-    // }
-
-
-    const pickProfile = ()=>{
+    const pickProfile = (profile_base64)=>{
         let file = btn_profile_picture['files'][0];
-      
         let reader = new FileReader();
-          
         reader.onload = function () {
             profile_base64 = reader.result.replace("data:", "")
                 .replace(/^.+,/, "");
-      
-            console.log(profile_base64);
         }
         reader.readAsDataURL(file);
+        return profile_base64;
     }
-    const pickCover = ()=>{
+    const pickCover = (cover_base64)=>{
         let file = btn_cover_picture['files'][0];
-      
         let reader = new FileReader();
-          
         reader.onload = function () {
             cover_base64 = reader.result.replace("data:", "")
                 .replace(/^.+,/, "");
-      
-            console.log(cover_base64);
         }
         reader.readAsDataURL(file);
+        return cover_base64;
+    }
+    const addUser=(cover_base64,profile_base64)=>{
+        let url = "http://localhost/twitter-frontandbackend/php/adduser.php";
+        let parameters = {
+            method:'POST',
+            body: new URLSearchParams({
+                first_name:first_name.value,
+                last_name:last_name.value,
+                username:username.value,
+                email:email.value,
+                password:password.value,
+                profile_picture:profile_base64,
+                cover_picture:cover_base64
+            })
+        }
+        fetch(url,parameters)
+        .then(respone=>respone.json())
+        .then(data=>console.log(data));
     }
