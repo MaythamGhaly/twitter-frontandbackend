@@ -11,15 +11,18 @@ if(isset($_POST['id'])){
     $current_time = date ("Y-m-d");
 
     // Prepare SQL in order to be executed later on
-    $query=$mysqli->prepare("INSERT INTO `tweets_likes`(tweet_id,user_id,created_at) values(?,?,?)");
+    $query=$mysqli->prepare("INSERT INTO `tweets_likes`(created_at,tweet_id,user_id) values(?,?,?)");
     $query->bind_param("sss",$current_time,$tweet_id,$id,);
-    // Here we have two cases: if the above query has been executed, so, we have to return done with JSON response.
-    // Otherwise, the query will never be executed since user_id and user_following are primary key, so, first user is already following second user.
+    // Here we have two cases of the query has been excuted:
+        // 1-First case is that this user hasn't liked this tweet before. Hence, we must return with liked
+        // 2-Second case is that this user has liked this tweet before, and since user_id and tweet_id are primary keys
+        // So,we must retun status as already like through JSON response
+    $response=[];
     if($query->execute()){
-        $response=[];
-        $response['status']="done";
+        $response['status']="liked";
     }else{
-        $response=[];
-        $response['status']="done";
+        $response['status']="already liked";
     }
     echo json_encode($response);
+}
+?>
