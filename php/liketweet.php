@@ -12,7 +12,7 @@ if(isset($_POST['id'])){
 
     // Prepare SQL in order to be executed later on
     $query=$mysqli->prepare("INSERT INTO `tweets_likes`(created_at,tweet_id,user_id) values(?,?,?)");
-    $query->bind_param("sss",$current_time,$tweet_id,$id,);
+    $query->bind_param("sss",$current_time,$tweet_id,$id);
     // Here we have two cases of the query has been excuted:
         // 1-First case is that this user hasn't liked this tweet before. Hence, we must return with liked
         // 2-Second case is that this user has liked this tweet before, and since user_id and tweet_id are primary keys
