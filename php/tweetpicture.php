@@ -37,6 +37,5 @@ if(isset($_POST['id'])){
         $response['status']="fail";
     }
     echo json_encode($response);
-
 }
 ?>

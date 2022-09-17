@@ -1,0 +1,315 @@
+/* css file for login signup page */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.login-page {
+    display: block;
+}
+.login {
+    display: flex;
+    flex-wrap: wrap;
+}
+.image {
+    order: 2;
+    background-image: url("../signin-signup-page/images/login-img.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 100vh;
+    min-width: 300px;
+}
+.login-info {
+    order: 1;
+    width: 100%;
+    height: 100%;
+}
+.logo-login {
+    margin: 30px 30px;
+    width: 70px;
+    height: 60px;
+}
+.sign-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    align-items: center;
+    margin-bottom: 50px;
+}
+.sign-info>h1 {
+    font-size: 60px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.sign-info>p {
+    margin-top: 20px;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+}
+.btn-section {
+    width: 50%;
+    min-width: 300px;
+    margin-top: 30px;
+    row-gap: 30px;
+    text-align: center;
+}
+.signup-btn {
+    border-radius: 50px;
+    padding: 15px 55px;
+    background-color: rgb(103, 144, 255);
+    color: white;
+    border: 0px;
+    cursor: pointer;
+}
+.signin-btn {
+    border-radius: 50px;
+    padding: 15px 95px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(103, 144, 255);
+    cursor: pointer;
+}
+.btn-section>h2 {
+    margin-top: 100px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.information {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    justify-content: center;
+}
+.information>a,
+p {
+    color: rgb(172, 172, 172);
+    margin: 0 10px;
+}
+/* popup modal */
+.pop-up {
+    display: none;
+    height: 80vh;
+}
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    width: 80%;
+    align-items: center;
+    border-radius: 20px;
+    min-width: 400px;
+    min-height: 550px;
+}
+.popup-content>p {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+}
+.popup-content>h5 {
+    text-align: center;
+}
+.logo-signin {
+    width: 50px;
+    height: 40px;
+}
+.input {
+    width: 300px;
+    padding: 15px;
+    border-radius: 20px;
+    border-style: solid;
+}
+.small-input {
+    width: 145px;
+    padding: 15px;
+    border-radius: 20px;
+    border-style: solid;
+}
+.flex {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+}
+.pop-signup {
+    display: none;
+    height: 80vh;
+}
+.Login-btn {
+    padding: 15px 130px;
+    border-radius: 20px;
+    background-color: rgb(103, 144, 255);
+    color: white;
+    border: 0;
+    cursor: pointer;
+}
+.close {
+    display: block;
+    color: #aaaaaa;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+.btn{
+    width: 145px;
+    padding: 15px;
+    background-color: rgb(103, 144, 255) ;
+    color: white;
+    border-radius: 20px;
+    border-style: 0px solid;
+}
+.checkbox{
+    width: 300px;
+}
+/* css for Profile Page */
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.header{
+    display: flex;
+    width:  70%;
+}
+.arrow-back{
+    display: block;
+    color: #aaaaaa;
+    font-size: 50px;
+    font-weight: bold;
+}
+.Name{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+.Name > p {
+    margin-left: 20px;
+    font-family: Arial, Helvetica, sans-serif; 
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+}
+.Name>h5{
+    margin-left: 20px;
+}
+.cover-photo{
+    width: 850px;
+    height: 300px;
+}
+.Profil-picture{
+    position: absolute;
+    top: 300px;
+    left: 250px;
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+}
+.Profile{
+    height: 100px;
+    width: 100%;
+}
+.profile-informations{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    padding: 0 100px;
+    gap: 10px;
+}
+.profile-informations > p {
+    font-family: Arial, Helvetica, sans-serif; 
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+}
+.profile-informations > h4 {
+    font-family: Arial, Helvetica, sans-serif; 
+    font-size: 15px;
+}
+.Follow-info{
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+}
+.profile-info{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.Follow-info > h5 {
+    font-family: Arial, Helvetica, sans-serif; 
+    font-size: 20px;
+    font-weight: bold;
+}
+.edit-profile{
+    padding: 10px 15px;
+    background-color: rgb(103, 144, 255);
+    color: white;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+/* media query */
+@media (min-width: 768px) {
+    .login-page {
+        display: block;
+    }
+    .image {
+        width: 50%;
+        padding: 50px;
+        order: 1;
+    }
+    .login-info {
+        order: 2;
+        width: 50%;
+    }
+    .pop-up {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding: 50px 250px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    .pop-signup {
+        display: none;
+        position: fixed;
+        height: 600px;
+        z-index: 1;
+        padding: 25px 250px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    .popup-content {
+        border: 1px solid black;
+    }
+    .close-popup{
+        width: 350px;
+    }
+    .close {
+        display: block;
+        color: #aaaaaa;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+}
