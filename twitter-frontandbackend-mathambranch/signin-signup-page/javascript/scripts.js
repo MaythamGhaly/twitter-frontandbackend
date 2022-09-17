@@ -5,84 +5,144 @@ if(!localStorage.getItem("remember_me")==null){
 
 }else{
     // Popup of register
-    const input_first_name_sign_up=document.getElementById('input_first_name_sign_up');
-    const input_last_name_sign_up=document.getElementById('input_last_name_sign_up');
-    const input_username_sign_up=document.getElementById('input_username_sign_up');
-    const input_email_sign_up=document.getElementById('input_email_sign_up');
-    const input_password_sign_up=document.getElementById('input_password_sign_up');
-    const input_re_password_sign_up=document.getElementById('input_re_password_sign_up');
-    const btn_profile_picture_sign_up=document.getElementById('btn_profile_picture_sign_up');
-    const btn_cover_picture_sign_up=document.getElementById('btn_cover_picture_sign_up');
-    const cb_remember_me_sign_up=document.getElementById('cb_remember_me_sign_up');
-    const btn_register_sign_up=document.getElementById('btn_register_sign_up');
-    let has_uploaded_profile=true;
-    let has_uploaded_cover=false;
-
-
-
+    const first_name=document.getElementById('first_name');
+    const last_name=document.getElementById('last_name');
+    const username=document.getElementById('username');
+    const email=document.getElementById('email');
+    const password=document.getElementById('password');
+    const re_password=document.getElementById('re_password');
+    const btn_profile_picture=document.getElementById('btn_profile_picture');
+    const btn_cover_picture=document.getElementById('btn_cover_picture');
+    const remember_me=document.getElementById('remember_me');
+    const register=document.getElementById('register');
+    const label_profile_picture=document.getElementById('label_profile_picture');
+    const label_cover_picture=document.getElementById('label_cover_picture');
+    const pick_up_files=document.getElementById("pick_up_files");
+    let profile_base64= "";
+    let cover_base64= "";
+   
 
     const addColorRed=(input,placeholder)=>{
         input.classList.add('red-color-text');
         input.placeholder=placeholder;
-    }
-    const addColorRedButton=(input,text)=>{
-        input.classList.add('red-color-text');
-        input.innerText=text;
-    }
-
+    };
     const removeColorRed=(input,placeholder)=>{
         input.classList.remove('red-color-text');
         input.placeholder=placeholder;
-    }
-    const removeColorRedButton=(input,text)=>{
-        input.classList.remove('red-color-text');
-        input.innerText=text;
-    }
-    input_first_name_sign_up.addEventListener('click',function(){
-        removeColorRed(input_first_name_sign_up,"First Name");
-    });
-    input_last_name_sign_up.addEventListener('click',function(){
-        removeColorRed(input_last_name_sign_up,"Last Name");
-    });
-    input_username_sign_up.addEventListener('click',function(){
-        removeColorRed(input_username_sign_up,"Username");
-    });
-    input_email_sign_up.addEventListener('click',function(){
-        removeColorRed(input_email_sign_up,"Email");
-    });
-    input_password_sign_up.addEventListener('click',function(){
-        removeColorRed(input_password_sign_up,"Password");
-    });
-    input_re_password_sign_up.addEventListener('click',function(){
-        removeColorRed(input_re_password_sign_up,"Re-enter your password");
-    });
-    btn_profile_picture_sign_up.addEventListener('click',function(){
-        removeColorRedButton(btn_profile_picture_sign_up,"Profile picture");
-    });
-    btn_cover_picture_sign_up.addEventListener('click',function(){
-        removeColorRedButton(btn_cover_picture_sign_up,"Cover picture");
-    });
-    const checkEntries=()=>{
-        if(input_first_name_sign_up.value==''){
-            addColorRed(input_first_name_sign_up,"Required *");
-        }else if(input_last_name_sign_up.value==''){
-            addColorRed(input_last_name_sign_up,"Required *");
-        }else if(input_username_sign_up.value==''){
-            addColorRed(input_username_sign_up,"Required *");
-        }
-        else if(input_email_sign_up.value==''){
-            addColorRed(input_email_sign_up,"Required *");
-        }
-        else if(input_password_sign_up.value==''){
-            addColorRed(input_password_sign_up,"Required *");
-        }else if(input_re_password_sign_up.value==''){
-            addColorRed(input_re_password_sign_up,"Required *");
-        }else if(!has_uploaded_profile){
-            addColorRedButton(btn_profile_picture_sign_up,"Profile Required");
-        }else if(!has_uploaded_cover){
-            addColorRedButton(btn_cover_picture_sign_up,"Cover Required");
-        }
-    }
-    btn_register_sign_up.addEventListener('click',checkEntries);
+    };
+    const checkEntries = ()=>{
 
-}
+        if(first_name.value==''){
+            addColorRed(first_name,"Required *");
+        }else if(first_name.value.length<=2){
+            first_name.value="";
+            addColorRed(first_name,"Invalid Name");
+        }else if(last_name.value==''){
+            addColorRed(last_name,"Required *");
+        }else if(last_name.value.length<=2){
+            last_name.value="";
+            addColorRed(last_name,"Invalid Family");
+        }else if(username.value==''){
+            addColorRed(username,"Required *");
+        }else if(username.value.length<=2){
+            username.value="";
+            addColorRed(username,"Invalid Username");
+        }else if(email.value==''){
+            addColorRed(email,"Required *");
+        }else if(email.value.length<=6 || !email.value.includes('@')){
+            email.value="";
+            addColorRed(email,"Invalid Username");
+        } else if(password.value==''){
+            addColorRed(password,"Required *");
+        }else if(password.value.length<5){
+            password.value="";
+            addColorRed(password,"Invalid Password");
+        }else if(re_password.value==''){
+            addColorRed(re_password,"Required *");
+        }else if(re_password.value.length<5){
+            re_password.value="";
+            addColorRed(password,"Invalid Password");
+        } else if(re_password.value!=password.value){
+            re_password.value="";
+            password.value="";
+            addColorRed(password,"Must be equal");
+            addColorRed(re_password,"Must be equal");
+        }else {
+            try{
+                pick_up_files.innerText=""
+                pick_up_files.style.fontSize="0vw";
+                pickCover();
+                pickProfile();
+                console.log("done");
+            }catch(err){
+                console.log("error");
+                pick_up_files.style.color="red";
+                pick_up_files.innerText="Cover and profile are required."
+                pick_up_files.style.fontSize="2vw";
+            }
+        }
+    }
+    first_name.addEventListener('click',function(){
+        removeColorRed(first_name,"First name");
+    });
+    last_name.addEventListener('click',function(){
+        removeColorRed(last_name,"Last name");
+    });
+    username.addEventListener('click',function(){
+        removeColorRed(username,"Username");
+    });
+    email.addEventListener('click',function(){
+        removeColorRed(email,"Email");
+    });
+    password.addEventListener('click',function(){
+        removeColorRed(password,"Password");
+    });
+    re_password.addEventListener('click',function(){
+        removeColorRed(re_password,"Re-enter your password");
+    });
+    register.addEventListener('click',checkEntries);
+
+    }
+
+
+    // const addUser = ()=>{
+    
+    //     let url = "";
+    //     let parameters = {
+    //         method:'POST',
+    //         body: new URLSearchParams({
+    //             //your parameters must be here
+    //         })
+    //     }
+    //     fetch(url,parameters)
+    //     .then(respone=>respone.json())
+    //     .then(data=>console.log(data));
+    // }
+
+
+    const pickProfile = ()=>{
+        let file = btn_profile_picture['files'][0];
+      
+        let reader = new FileReader();
+          
+        reader.onload = function () {
+            profile_base64 = reader.result.replace("data:", "")
+                .replace(/^.+,/, "");
+      
+            console.log(profile_base64);
+        }
+        reader.readAsDataURL(file);
+    }
+    const pickCover = ()=>{
+        let file = btn_cover_picture['files'][0];
+      
+        let reader = new FileReader();
+          
+        reader.onload = function () {
+            cover_base64 = reader.result.replace("data:", "")
+                .replace(/^.+,/, "");
+      
+            console.log(cover_base64);
+        }
+        reader.readAsDataURL(file);
+    }

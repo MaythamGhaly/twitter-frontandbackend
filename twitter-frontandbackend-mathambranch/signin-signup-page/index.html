@@ -90,22 +90,32 @@
                 <img src="./images/Twitter-logo-login.png" class="logo-signin">
                 <p>Create your account</p>
                 <div class="flex">
-                    <input class="small-input" placeholder="Name" id="input_first_name_sign_up">
-                    <input class="small-input" placeholder="Last name" id="input_last_name_sign_up">
+                    <input class="small-input" placeholder="Name" id="first_name">
+                    <input class="small-input" placeholder="Last name" id="last_name">
                 </div>
-                <input class="input" placeholder="Username" id="input_username_sign_up">
-                <input class="input" placeholder="Email" id="input_email_sign_up">
-                <input class="input" placeholder="Password" id="input_password_sign_up">
-                <input class="input" placeholder="Re-enter your Password" id="input_re_password_sign_up">
+                <input class="input" placeholder="Username" id="username">
+                <input class="input" placeholder="Email" id="email">
+                <input class="input" placeholder="Password" id="password">
+                <input class="input" placeholder="Re-enter your Password" id="re_password">
+                <p id="pick_up_files"></p>
                 <div class="flex">
-                    <button class="btn" id="btn_profile_picture_sign_up">Profile picture</button>
-                    <button class="btn" id="btn_cover_picture_sign_up">Cover picture</button>
+                    <!-- <button class="btn" id="btn_profile_picture_sign_up">Profile picture</button> -->
+                    <!-- <input type="file" accept="image/jpeg, image/png, image/jpg" id="btn_profile_picture_sign_up"> -->
+                    <!-- <button class="btn" id="btn_cover_picture_sign_up">Cover picture</button> -->
+                    <label class="file-upload" id="label_profile_picture">
+                        <input type="file" accept="image/jpeg, image/png, image/jpg" id="btn_profile_picture">
+                        Upload profile
+                      </label>
+                    <label class="file-upload" id="label_cover_picture">
+                        <input type="file" accept="image/jpeg, image/png, image/jpg" id="btn_cover_picture">
+                        Upload cover
+                      </label>
                 </div>
                 <div class="checkbox">
-                    <input type="checkbox" id="cb_remember_me_sign_up">
+                    <input type="checkbox" id="remember_me">
                     <label>Remembre me ?</label>
                 </div>
-                <button class="Login-btn" id="btn_register_sign_up">
+                <button class="Login-btn" id="register">
                     Register
                 </button>
             </div>
