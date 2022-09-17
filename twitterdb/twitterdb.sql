@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 17, 2022 at 08:06 AM
+-- Generation Time: Sep 17, 2022 at 04:31 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -38,9 +38,11 @@ CREATE TABLE `blockers` (
 --
 
 INSERT INTO `blockers` (`user_id`, `user_blocking`, `created_at`) VALUES
+(1, 18, NULL),
 (8, 3, NULL),
 (9, 10, NULL),
-(10, 3, NULL);
+(10, 3, NULL),
+(19, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -60,11 +62,9 @@ CREATE TABLE `followers` (
 
 INSERT INTO `followers` (`user_id`, `user_following`, `created_at`) VALUES
 (1, 3, NULL),
-(1, 5, NULL),
+(2, 1, '2022-09-17'),
 (2, 3, '2022-09-16'),
-(2, 6, NULL),
 (2, 10, NULL),
-(3, 1, NULL),
 (3, 2, NULL),
 (3, 4, NULL),
 (3, 5, NULL),
@@ -73,7 +73,7 @@ INSERT INTO `followers` (`user_id`, `user_following`, `created_at`) VALUES
 (5, 1, NULL),
 (5, 8, NULL),
 (6, 1, NULL),
-(7, 4, NULL),
+(7, 3, NULL),
 (8, 2, NULL),
 (8, 9, NULL),
 (9, 2, NULL);
@@ -97,7 +97,12 @@ CREATE TABLE `tweets` (
 
 INSERT INTO `tweets` (`id`, `text`, `created_at`, `user_id`) VALUES
 (1, 'Hi this is a text from houssein', '2022-09-02', 1),
-(2, 'Hi this is another text from Houssein', '2022-09-15', 1);
+(2, 'Hi this is another text from Houssein', '2022-09-15', 1),
+(3, 'HI this is me number 3', '2022-09-17', 3),
+(4, 'Hi this is number 2', '2022-09-18', 2),
+(5, 'hello this is number 4', '2022-09-17', 4),
+(6, 'Hi I\'m 21', NULL, 21),
+(7, 'hi this is number 7 from user 21', NULL, 21);
 
 -- --------------------------------------------------------
 
@@ -118,8 +123,8 @@ CREATE TABLE `tweets_likes` (
 INSERT INTO `tweets_likes` (`created_at`, `tweet_id`, `user_id`) VALUES
 (NULL, 1, 1),
 (NULL, 1, 10),
-(NULL, 2, 4),
-(NULL, 2, 8);
+(NULL, 3, 3),
+(NULL, 3, 4);
 
 -- --------------------------------------------------------
 
@@ -140,7 +145,22 @@ CREATE TABLE `tweets_pictures` (
 INSERT INTO `tweets_pictures` (`id`, `picture_url`, `tweets_id`) VALUES
 (1, 'NA', 1),
 (2, 'Na', 1),
-(3, 'NA', 2);
+(3, 'NA', 2),
+(4, 'link of for from user 2', 4),
+(5, 'link of for from user2 2', 4),
+(6, 'users/1/tweets/.png', 1),
+(7, 'users/21/tweets/.png', 6),
+(8, 'users/21/tweets/1663420189.png', 6),
+(9, 'users/21/tweets/1663420195.png', 6),
+(10, 'users/21/tweets/61663420175.png', 6),
+(11, 'users/21/tweets/61663420150.png', 6),
+(12, 'users/21/tweets/6/1663420166.png', 6),
+(13, 'users/21/tweets/7/1663420178.png', 7),
+(14, 'users/21/tweets/7/1663420198.png', 7),
+(15, 'users/22/tweets/8/1663420190.png', 8),
+(16, 'users/19/tweets/8/1663420157.png', 8),
+(17, 'users/19/tweets/9/1663420164.png', 9),
+(18, 'users/19/tweets/9/1663420169.png', 9);
 
 -- --------------------------------------------------------
 
@@ -165,9 +185,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `username`, `password`, `profile_picture_url`, `cover_picture_url`, `created_at`) VALUES
-(1, 'houssein@gmail.com', 'Houssein', 'Droubi', '@houssein', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'NA', 'NA', '2022-09-01'),
-(2, 'mouhamad@gmail.com', 'Mouhamad', 'Droubi', '@mouhamad', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'NA', 'NA', '2022-09-02'),
-(3, 'ali@gmail.com', 'Ali', 'Droubi', '@ali', 'test', 'NA', 'Na', '2022-09-03'),
+(1, 'houssein@gmail.com', 'Houssein', 'Droubi', '@houssein', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'NA', 'NA', '2022-09-01'),
+(2, 'mouhamad@gmail.com', 'Mouhamad', 'Droubie', '@mouhamad', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'NA', 'NA', '2022-09-02'),
+(3, 'ali@gmail.com', 'Ali', 'Droubi', '@alie', 'test', 'NA', 'Na', '2022-09-03'),
 (4, 'nour@gmail.com', 'Nour', 'Doe', '@nour', 'test', 'Na', 'Na', '1899-12-31'),
 (5, 'abbas@gmail.com', 'Abbas', 'Doe', '@Abbas', 'test', 'NA', 'NA', '2022-09-05'),
 (6, 'samah@gmail.com', 'samah', 'Doe', '@samah', 'test', 'NA', 'NA', '2022-09-04'),
@@ -176,7 +196,9 @@ INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `username`, `pass
 (9, 'amal@gmail.com', 'Amal', 'Doe', '@amal', 'test', 'NA', 'Na', '2022-09-09'),
 (10, 'zaynab@gmail.com', 'Zaynab', 'Doe', '@zaynab', 'test', 'NA', 'NA', '2022-09-10'),
 (18, 'mahdi@gmail.com', 'Mahdi', 'Doe', '@Mahdi', 'tests', 'users/18/profile/1663275600.png', 'users/18/cover/1663275600.png', '2022-09-15'),
-(19, 'hassan@gmail.com', 'hassan', 'Doe', '@hassan', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'users/19/profile/1663189200.png', 'users/19/cover/1663189200.png', '2022-09-15');
+(19, 'hassan@gmail.com', 'hassan', 'Doe', '@hassan', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'users/19/profile/1663189200.png', 'users/19/cover/1663189200.png', '2022-09-15'),
+(20, 'new@gmail.com', 'new', 'new', '@new', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'users/20/profile/1663362000.png', 'users/20/cover/1663362000.png', '2022-09-17'),
+(21, 'new@gmail.com1', 'new', 'new', '@new', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'users/21/profile/1663362000.png', 'users/21/cover/1663362000.png', '2022-09-17');
 
 --
 -- Indexes for dumped tables
@@ -226,19 +248,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `tweets`
 --
 ALTER TABLE `tweets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tweets_pictures`
 --
 ALTER TABLE `tweets_pictures`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
