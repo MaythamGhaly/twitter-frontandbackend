@@ -115,7 +115,7 @@ for(let i=0;i<array_tweets.length;i++){
     name_date.appendChild(h6);
     tweet_header.appendChild(tweet_profile);
     tweet_header.appendChild(name_date);
-
+    
     div_tweet.appendChild(tweet_header);
     const tweet_text=document.createElement('div');
     tweet_text.classList.add('tweet-text');
@@ -132,9 +132,7 @@ for(let j=0;j<array_tweet_pictures.length;j++){
 }
     tweet_text.appendChild(p1);
     tweet_text.appendChild(images);
-
     div_tweet.appendChild(tweet_text);
-
     const likes=document.createElement('div');
     likes.classList.add('likes');
     const heart=document.createElement('span');
@@ -174,15 +172,13 @@ for(let j=0;j<array_tweet_pictures.length;j++){
             unLikeTweet(localStorage.getItem("id"),id,heart,p2,num_likes);
             num_likes--;
         }
-        
         p2.innerText=`${num_likes} likes`;
-        
     });
     all_tweets.appendChild(div_tweet) ;
 }
 });
 
-// /*---------------------------------------------------------------------------------------------*/
+ /*------Edit Proile interface-------*/
 const label_update_profile=document.getElementById('label_update_profile');
 const label_update_cover=document.getElementById('label_update_cover');
 const btn_update_profile=document.getElementById('btn_update_profile');
@@ -192,10 +188,9 @@ const btn_remove_profile=document.getElementById('btn_remove_profile');
 const input_username=document.getElementById('input_username');
 const input_password=document.getElementById('input_password');
 const submit=document.getElementById('submit');
-    
-
-
-
+let cover_base64 = "";
+let profile_base64 = "";
+//Send request to delete the cover picture
 const removeCover=()=>{
     let url = "http://localhost/twitter-frontandbackend/php/removecover.php";
     let parameters = {
@@ -211,7 +206,7 @@ const removeCover=()=>{
         location.reload();
 ;          }
     });}
-
+//Send request to delete the profile picture
 const removeProfile=()=>{
     let url = "http://localhost/twitter-frontandbackend/php/removeprofile.php";
     let parameters = {
@@ -226,15 +221,17 @@ const removeProfile=()=>{
         if((Object.values(data)[0])=="profile removed"){
         location.reload();}
     });}
-     // Add color red for some exceptions
+// Add color red for some exceptions
 const addColorRed=(input,placeholder)=>{
     input.classList.add('red-color-text');
     input.placeholder=placeholder;
 };
+// Add color red from placeholder
 const removeColorRed=(input,placeholder)=>{
     input.classList.remove('red-color-text');
     input.placeholder=placeholder;
 };
+//Send request to change the username
 const changeUsername = () =>{
     let url = "http://localhost/twitter-frontandbackend/php/changeusername.php";
     let parameters = {
@@ -251,6 +248,7 @@ const changeUsername = () =>{
         location.reload();}
     });
 }
+//Send request to change the password
 const changePassword = () =>{
     let url = "http://localhost/twitter-frontandbackend/php/changepassword.php";
     let parameters = {
@@ -267,6 +265,40 @@ const changePassword = () =>{
         location.reload();}
     });
 }
+const updateProfile=(profile_base64) =>{
+    let url = "http://localhost/twitter-frontandbackend/php/updateprofile.php";
+    let parameters = {
+        method:'POST',
+        body: new URLSearchParams({
+            id:localStorage.getItem("id"),
+            profile_picture:profile_base64
+        })
+    };
+    fetch(url,parameters)
+    .then(respone=>respone.json())
+    .then(data=>{
+        if((Object.values(data)[0])=="profile changed"){
+        location.reload();}
+    });
+}
+const updateCover=() =>{
+    let url = "http://localhost/twitter-frontandbackend/php/updatecover.php";
+    let parameters = {
+        method:'POST',
+        body: new URLSearchParams({
+            id:localStorage.getItem("id"),
+            cover_picture:cover_base64
+        })
+    };
+    fetch(url,parameters)
+    .then(respone=>respone.json())
+    .then(data=>{
+        if((Object.values(data)[0])=="cover changed"){
+        location.reload();}
+    });
+}
+// Put some exceptions like input must be empty, or in case user want to change username or passowrd
+// the same conditions of login page will be required
 let checkInputs = ()=>{
     if((input_username.value.length>=1 && input_username.value.length<3)||input_username.value.includes("@")){
         input_username.value='';
@@ -278,14 +310,50 @@ let checkInputs = ()=>{
         addColorRed(input_password,"Invalid Password");
     }else if(input_password.value.length>=5){
         changePassword();
-    }
+    }else{
+        // Now the user might picked up either for updating the cover or for updating the profile
+        if(profile_base64!=''){
+            updateProfile(profile_base64);
+        }else if(cover_base64!=''){
+            updateCover(profile_base64);
+        }
 }        
+// Listerner on username input to remove red errors
 input_username.addEventListener('click',function(){
     removeColorRed(input_username,"Change Username");
 })
+// Listerner on password input to remove red errors
 input_password.addEventListener('click',function(){
     removeColorRed(input_password,"Change Password");
 })
+
+// The below function will let the profile image to convert to Base64 
+let pickUpProfile =()=>{
+    let file = btn_update_profile['files'][0];
+    let reader = new FileReader();
+    reader.onload = function () {
+        profile_base64 = reader.result.replace("data:", "")
+            .replace(/^.+,/, "");
+        
+    }
+    reader.readAsDataURL(file);
+    return profile_base64;
+}
+
+//The below function will let the cover image to convert to Base64 
+let pickUpCover =()=>{
+    let file = btn_update_cover['files'][0];
+    let reader = new FileReader();
+    reader.onload = function () {
+        cover_base64 = reader.result.replace("data:", "")
+            .replace(/^.+,/, "");
+    }
+    reader.readAsDataURL(file);
+    return cover_base64;
+}
+
 btn_remove_cover.addEventListener('click',removeCover);
 btn_remove_profile.addEventListener('click',removeProfile);
 submit.addEventListener('click',checkInputs);
+btn_update_profile.addEventListener('change',pickUpProfile);
+btn_update_cover.addEventListener('change',pickUpCover);
