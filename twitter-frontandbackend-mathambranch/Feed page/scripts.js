@@ -244,4 +244,81 @@ let unLikeTweet=(id,tweet_id,heart)=>{
     btn_tweet.addEventListener('click',addTweet);
 
     // Search friends
-    
+    const all_search=document.getElementById('all_search');
+    const input_search=document.getElementById('input_search');
+    input_search.addEventListener('change',()=>{
+
+
+        let url = `http://localhost/twitter-frontandbackend/php/search.php?id=${localStorage.getItem("id")}&keyword=${input_search.value}`;
+
+    fetch(url)
+    .then(respone=>respone.json())
+    .then(data=>{
+        const length=Object.values(data).length;
+
+        const all_search=document.getElementById('all_search');
+        
+        for(let i=0;i<length;i++){
+           let list =Object.values(data)[i];
+           let first_name=Object.values(list)[1];
+           let last_name=Object.values(list)[2];
+           let profie_picture_search=Object.values(list)[4];
+            
+           let tweet=Object.values(list)[5];
+           let following=Object.values(list)[6];
+           let follower=Object.values(list)[7];
+           console.log(list);
+
+
+
+
+
+            const search_user=document.createElement('div');
+            search_user.classList.add('search-user');
+
+            const img_search = document.createElement('img');
+            img_search.classList.add('img-search');
+
+            const search_info=document.createElement('div');
+            search_info.classList.add('search-info');
+
+            const search_name=document.createElement('search-name');
+            search_name.classList.add('search-name');
+
+            const p =document.createElement('p');
+            const Follow_user=document.createElement('button');
+            Follow_user.classList.add('Follow-user');
+
+            search_name.appendChild(p);
+            search_name.appendChild(Follow_user);
+
+            const user_info=document.createElement('div');
+            user_info.classList.add('user-info');
+
+            const p1=document.createElement('p');
+            const p2=document.createElement('p');
+            const p3=document.createElement('p');
+            user_info.appendChild(p1);
+            user_info.appendChild(p2);
+            user_info.appendChild(p3);
+
+            search_info.appendChild(search_name);
+            search_info.appendChild(user_info);
+
+            search_user.appendChild(img_search);
+            search_user.appendChild(search_info);
+            p.innerText=`${first_name} ${last_name}`
+            Follow_user.innerText="Find more"
+            if(profie_picture_search!="NA"){
+                img_search.src=profie_picture_search;
+                img_search.src=`http://localhost/twitter-frontandbackend/php/${profie_picture_search}`;
+            }
+            p1.innerText=`tweet ${tweet}`;
+            p2.innerText=`following ${following}`;
+            p3.innerText=`follower ${follower}`;
+            // console.log(profie_picture_search);
+            // console.log(profie_picture_search);
+            all_search.appendChild(search_user);
+        }
+    })
+    })
