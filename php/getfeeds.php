@@ -66,9 +66,16 @@ if(isset($_GET['id'])){
         // Put the pictures array insede response_tweets_data (same as id,text,likes...)
         $response_tweets_data['picture_urls']=$picture_url;
         // Prepare the whole data of this tweet.
-        $response_tweets[]=$response_tweets_data;
-
-
+        
+        // Getting the first name, last name and profile picture of every user match first query
+         $query=$mysqli->prepare("SELECT first_name,last_name,profile_picture_url FROM users WHERE users.id=?");
+         $query->bind_param("s",$a['user_id']);
+         $query->execute();
+         $return=$query->get_result()->fetch_assoc();
+         $response_tweets_data['first_name']=$return['first_name'];
+         $response_tweets_data['last_name']=$return['last_name'];
+         $response_tweets_data['profile_picture_url']=$return['profile_picture_url'];
+         $response_tweets[]=$response_tweets_data;
      }
      // These data will also be shown in feeds page
      $query=$mysqli->prepare("SELECT first_name,last_name,profile_picture_url FROM users WHERE users.id =?");

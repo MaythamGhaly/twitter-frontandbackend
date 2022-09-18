@@ -2,7 +2,7 @@
 // or in signup with new account
 if(!localStorage.getItem("remember_me")==null || localStorage.getItem("remember_me")=='true'){
     // Here the user is clicked on remember me. Hence, we have to redirect him/her to the feeds page.
-    location.replace("file:///C:/xampp/htdocs/twitter-frontandbackend/twitter-frontandbackend-mathambranch/Profile%20page/index.html");
+    // location.replace("file:///C:/xampp/htdocs/twitter-frontandbackend/twitter-frontandbackend-mathambranch/Profile%20page/index.html");
     // TODO:redirect user to feeds page
 }else{
     // We have to clear local storage if user didn't check remember me checkbox.
@@ -169,7 +169,9 @@ if(!localStorage.getItem("remember_me")==null || localStorage.getItem("remember_
                     localStorage.setItem("remember_me","false");
                 }
                 localStorage.setItem("id",Object.values(data)[1]);
-                location.replace("file:///C:/xampp/htdocs/twitter-frontandbackend/twitter-frontandbackend-mathambranch/Profile%20page/index.html");
+                // Example of replace user from page to abother
+                // location.replace("file:///C:/xampp/htdocs/twitter-frontandbackend/twitter-frontandbackend-mathambranch/Profile%20page/index.html");
+                // TODO:redirect user to feed page
             }else{
                 // In case the first response is not done, so it will be is_registered, which means that this email is
                 // existed before.
@@ -211,6 +213,7 @@ if(!localStorage.getItem("remember_me")==null || localStorage.getItem("remember_
                             localStorage.setItem("remember_me","false");
                         }
                         localStorage.setItem("id",Object.values(data)[1]);
+                        // TODO: Take user to feed page
                         location.replace("file:///C:/xampp/htdocs/twitter-frontandbackend/twitter-frontandbackend-mathambranch/Profile%20page/index.html");
                     }else{
                         // In case the first response is not registered so, that means either email or password is wrong

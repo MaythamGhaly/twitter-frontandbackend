@@ -324,6 +324,7 @@ p {
 .heart{
     width: 20px;
     height: 20px;
+    cursor: pointer;
 }
 /* following btn (show when the user Press on Follow button */
 .Following{
