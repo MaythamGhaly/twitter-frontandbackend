@@ -388,7 +388,7 @@ p {
 }
 .feed-logo{
     width: 28vw;
-    height: 20vh;
+    height: 28vh;
 }
 .feed-profile{
     display: flex;
@@ -492,6 +492,63 @@ p {
     width: 100%;
     padding-right: 50px;
 }
+.search-phone{
+    width: 100%;
+    height: 8vh;
+    border-radius: 10px;
+}
+.phone-user{
+    display: flex;
+    margin-bottom: 15px;
+    border-bottom: 1px solid black;
+    padding-bottom: 3px;
+}
+.phone-search{
+    border-radius: 100px;
+}
+.user-phone-search{
+    border-radius: 100px;
+    width: 40px;
+    height: 40px;
+}
+.search-info{
+    display: flex;
+    flex-direction: column;
+}
+.phone-search-name{
+    display: flex;
+    justify-content: space-between;
+    width: 80vw;
+}
+.user-info-phone{
+    display: flex;
+    justify-content: space-between;
+}
+.Follow-user-phone{
+    border-radius: 20px;
+    padding: 4px 8px;
+    background-color:rgb(103, 144, 255)  ;
+    color: white;
+}
+.phone-search-name> p{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000;
+    font-weight: bold;
+}
+.user-info-phone > p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #000;
+}
+.phone-text{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.phone-text>p{
+    color: #000;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+}
 /* media query */
 @media (min-width: 768px) {
     .login-page {
@@ -574,5 +631,8 @@ p {
     }
     .Tweet-feed{
         width: 80%;
+    }
+    .phone-search{
+        display: none;
     }
 }
