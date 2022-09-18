@@ -669,6 +669,9 @@ p {
     display:flex;
     flex-direction:column;
   }
+  .relation>div{
+    margin-top: 1vw;
+  }
   .btn-block{
     background-color: rgb(201, 27, 27);
   }
