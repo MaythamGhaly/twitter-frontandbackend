@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<htm>
+<html>
 
     <head>
         <title>Profile</title>
@@ -10,55 +10,37 @@
     <body>
         <div class="container">
             <div class="header">
-                <span class="arrow-back">&larr;</span>
+                <span class="arrow-back" id="arrow">&larr;</span>
                 <div class="Name">
-                    <p id="Name">Name</p>
-                    <h5 id="nbr-tweet"> # Tweet</h5>
+                    <p id="name">Name</p>
+                    <h5 id="tweets_number"> # Tweet</h5>
                 </div>
             </div>
             <div>
-                <img src="../Profile page/images/cover.png" class="cover-photo" id="cover-photo">
+                <img src="../Profile page/images/cover.png" class="cover-photo" id="cover_photo">
             </div>
             <div class="Profile">
-                <img src="../Profile page/images/PP.png" class="Profil-picture" id="Profil-picture">
+                <img src="../Profile page/images/PP.png" class="Profil-picture" id="Profil_picture">
             </div>
             <div class="profile-informations">
-                <p>Name</p>
-                <h4>Username</h4>
-                <h4>Join Date</h4>
+                <p id="full_name">Name</p>
+                <h4 id="username">Username</h4>
+                <h4 id="join_date">Join Date</h4>
                 <div class="profile-info">
                     <div class="Follow-info">
-                        <h5> # Following </h5>
-                        <h5> # Followers </h5>
+                        <h5 id="following_number"> # Following </h5>
+                        <h5 id="follwer_number"> # Followers </h5>
                     </div>
-                    <button class="edit-profile">Follow <span>&#43;</span></button>
-                    <button class="Following">Following <span>&#10004;</span></button>
+                    <div class="relation">
+                    <button class="edit-profile" id="follow_button">Follow <span id="folow_button_span">&#43;</span></button>
+                    <button class="edit-profile btn-block" id="block_button">Block <span >&#9888;</span></button>
+                    </div>
                 </div>
             </div>
             <div class="Tweet-title">Tweets</div>
-            
+            <div id="all_tweets" class="all-tweets" ></div>
             <div class="Tweet" id="Tweet">
-                <div class="tweet-header">
-                    <img src="../Profile page/images/PP.png"class="tweet-profile">
-                    <div class="name-date">
-                        <p>Name</p>
-                        <h6>Date</h6>
-                    </div>
-                </div>
-                <div class="tweet-text">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Fermentum odio eu feugiat pretium. Quam viverra orci sagittis eu
-                        volutpat odio. Tincidunt vitae semper quis lectus. Vestibulum mattis ullamcorper velit sed
-                        ullamcorper morbi tincidunt. Vulputate ut pharetra sit amet aliquam id.</p>
-                    <div class="images">
-                        <img src="../Profile page/images/imag1.jpg" class="tweet-img">
-                        <img src="../Profile page/images/imag2.jpg" class="tweet-img">
-                    </div>
-                </div>
-                <div class="likes">
-                    <span class="heart">&#128420;</span>
-                    <p># Likes</p>
-                </div>
-            </div>
         </div>
+        <script src="scripts.js" type="text/javascript"></script>
     </body>
+    </html>
