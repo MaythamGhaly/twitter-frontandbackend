@@ -115,7 +115,6 @@ for(let i=0;i<array_tweets.length;i++){
     name_date.appendChild(h6);
     tweet_header.appendChild(tweet_profile);
     tweet_header.appendChild(name_date);
-    
     div_tweet.appendChild(tweet_header);
     const tweet_text=document.createElement('div');
     tweet_text.classList.add('tweet-text');
@@ -318,6 +317,7 @@ let checkInputs = ()=>{
             updateCover(profile_base64);
         }
 }        
+}
 // Listerner on username input to remove red errors
 input_username.addEventListener('click',function(){
     removeColorRed(input_username,"Change Username");
