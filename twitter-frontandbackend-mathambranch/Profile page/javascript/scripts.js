@@ -155,6 +155,9 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
             // If the user has liked his tweet so the heart's color wil be red. Otherwise, it will be gray
             if(isLiked=='isliked'){
                 heart.innerHTML=Array('\&#10084;&#65039;');
+                // we have deffrientiate the two cases through the background color wich are white and wheat who 
+                // are too close to each other. Beacuse, we couldn't differe between them beause of inflexibility
+                // of emojis
                 heart.style.backgroundColor='white';
             }else{
                 heart.innerHTML=Array('&#128420;');
