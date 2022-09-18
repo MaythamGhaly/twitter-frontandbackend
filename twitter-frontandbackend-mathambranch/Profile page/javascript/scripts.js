@@ -7,7 +7,7 @@ const username=document.getElementById("username");
 const join_date=document.getElementById("join_date");
 const following_number=document.getElementById("following_number");
 const follwer_number=document.getElementById("follwer_number");
-var profile_url;
+let profile_url;
 let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${localStorage.getItem("id")}&other_id=${localStorage.getItem("id")}`;
     fetch(url)
     .then(respone=>respone.json())
@@ -43,16 +43,56 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
         }
         let array_tweets=Object.values(data)[8];
         // console.log(array_tweets);
-        let likeTweet=(tweet_id,)=>{
-
+        
+        let likeTweet=(id,tweet_id,heart,p2)=>{
+                let url = "http://localhost/twitter-frontandbackend/php/liketweet.php";
+                let parameters = {
+                    method:'POST',
+                    body: new URLSearchParams({
+                        id:id,
+                        tweet_id:tweet_id
+                    })
+                };
+                fetch(url,parameters)
+                .then(respone=>respone.json())
+                .then(data=>{
+                   console.log(data);
+                   if(Object.values(data)[0]=="liked"){
+                    heart.innerHTML=Array('\&#10084;&#65039;');
+                    heart.style.backgroundColor='white';
+;                   }
+                });}
+        
+        let unLikeTweet=(id,tweet_id,heart,p2)=>{
+                let url = "http://localhost/twitter-frontandbackend/php/unliketweet.php";
+                let parameters = {
+                    method:'POST',
+                    body: new URLSearchParams({
+                        id:id,
+                        tweet_id:tweet_id
+                    })
+                };
+                fetch(url,parameters)
+                .then(respone=>respone.json())
+                .then(data=>{
+                   console.log(data);
+                   if(Object.values(data)[0]=="unliked"){
+                    heart.innerHTML=Array('&#128420;');
+                    heart.style.backgroundColor='wheat';
+                   }
+               
+                   
+                });
         }
+        
         
         const all_tweets=document.getElementById('all_tweets');
         for(let i=0;i<array_tweets.length;i++){
             const id= Object.values(array_tweets[i])[0];
             const text= Object.values(array_tweets[i])[1];
             const date= Object.values(array_tweets[i])[2];
-            const num_likes= Object.values(array_tweets[i])[3];
+            let num_likes= Object.values(array_tweets[i])[3];
+            console.log(num_likes);
             const isLiked= Object.values(array_tweets[i])[4];
             const array_tweet_pictures= Object.values(array_tweets[i])[5];
 
@@ -80,7 +120,7 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
             const images =document.createElement('div');
             images.classList.add('images');
 
-
+            
             for(let j=0;j<array_tweet_pictures.length;j++){
                 const tweet_img=document.createElement('img');
                 tweet_img.classList.add('tweet-img');
@@ -105,11 +145,31 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
             if(profile_url!="NA"){
                 tweet_profile.src=profile_url;}
             p1.innerText=text;    
-            all_tweets.appendChild(div_tweet) ;
+            
             if(num_likes<1){
                 p2.innerText=`${num_likes} like`;
             }else{
                 p2.innerText=`${num_likes} likes`;
             }
+            if(isLiked=='isliked'){
+                heart.innerHTML=Array('\&#10084;&#65039;');
+                heart.style.backgroundColor='white';
+            }else{
+                heart.innerHTML=Array('&#128420;');
+                heart.style.backgroundColor='wheat';
+            }
+            heart.addEventListener('click',function(){
+                if( heart.style.backgroundColor=='wheat'){
+                    likeTweet(localStorage.getItem("id"),id,heart,p2,num_likes);
+                    num_likes++;
+                }else{
+                    unLikeTweet(localStorage.getItem("id"),id,heart,p2,num_likes);
+                    num_likes--;
+                }
+                
+                p2.innerText=`${num_likes} likes`;
+                
+            });
+            all_tweets.appendChild(div_tweet) ;
         }
     });
