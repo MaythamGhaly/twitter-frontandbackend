@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 17, 2022 at 04:31 PM
+-- Generation Time: Sep 18, 2022 at 10:08 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -42,7 +42,8 @@ INSERT INTO `blockers` (`user_id`, `user_blocking`, `created_at`) VALUES
 (8, 3, NULL),
 (9, 10, NULL),
 (10, 3, NULL),
-(19, 1, NULL);
+(19, 1, NULL),
+(19, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -62,9 +63,9 @@ CREATE TABLE `followers` (
 
 INSERT INTO `followers` (`user_id`, `user_following`, `created_at`) VALUES
 (1, 3, NULL),
-(2, 1, '2022-09-17'),
 (2, 3, '2022-09-16'),
 (2, 10, NULL),
+(2, 21, NULL),
 (3, 2, NULL),
 (3, 4, NULL),
 (3, 5, NULL),
@@ -76,7 +77,9 @@ INSERT INTO `followers` (`user_id`, `user_following`, `created_at`) VALUES
 (7, 3, NULL),
 (8, 2, NULL),
 (8, 9, NULL),
-(9, 2, NULL);
+(9, 2, NULL),
+(18, 19, '2022-09-18'),
+(19, 18, '2022-09-18');
 
 -- --------------------------------------------------------
 
@@ -98,11 +101,18 @@ CREATE TABLE `tweets` (
 INSERT INTO `tweets` (`id`, `text`, `created_at`, `user_id`) VALUES
 (1, 'Hi this is a text from houssein', '2022-09-02', 1),
 (2, 'Hi this is another text from Houssein', '2022-09-15', 1),
-(3, 'HI this is me number 3', '2022-09-17', 3),
-(4, 'Hi this is number 2', '2022-09-18', 2),
+(4, 'Hi this is number 2 Hi this is number 2 Hi this is number 2Hi this is number 2 Hi this is number 2 Hi this is number 2 Hi this is number 2', '2022-09-18', 2),
 (5, 'hello this is number 4', '2022-09-17', 4),
 (6, 'Hi I\'m 21', NULL, 21),
-(7, 'hi this is number 7 from user 21', NULL, 21);
+(7, 'hi this is number 7 from user 21', NULL, 21),
+(10, 'test from user 2 test from user 2 test from user 2 test from user 2 test from user 2 test from user 2 test from user 2 test from user 2 test from user 2 test from user 2 test from user 2 test from user 2 ', '2022-10-11', 2),
+(11, 'This is text from user 2', '2022-10-11', 2),
+(12, 'asdsadsadas', '2022-09-18', 2),
+(13, 'asdsadsadas', '2022-09-18', 2),
+(14, 'hello this is first text', '2022-09-18', 2),
+(15, 'asdasdasd', '2022-09-18', 2),
+(16, 'hello this is a tweet with image', '2022-09-18', 2),
+(17, 'This is second test with image plus reload', '2022-09-18', 2);
 
 -- --------------------------------------------------------
 
@@ -124,7 +134,12 @@ INSERT INTO `tweets_likes` (`created_at`, `tweet_id`, `user_id`) VALUES
 (NULL, 1, 1),
 (NULL, 1, 10),
 (NULL, 3, 3),
-(NULL, 3, 4);
+(NULL, 3, 4),
+('2022-09-18', 4, 2),
+(NULL, 4, 4),
+('2022-09-18', 10, 2),
+('2022-09-18', 11, 2),
+('2022-09-18', 11, 3);
 
 -- --------------------------------------------------------
 
@@ -143,24 +158,27 @@ CREATE TABLE `tweets_pictures` (
 --
 
 INSERT INTO `tweets_pictures` (`id`, `picture_url`, `tweets_id`) VALUES
-(1, 'NA', 1),
-(2, 'Na', 1),
-(3, 'NA', 2),
-(4, 'link of for from user 2', 4),
-(5, 'link of for from user2 2', 4),
-(6, 'users/1/tweets/.png', 1),
+(3, 'users/2/tweets/4/imag1.jpg', 2),
+(4, 'users/2/tweets/4/imag1.jpg', 4),
+(5, 'users/2/tweets/4/imag2.jpg', 4),
 (7, 'users/21/tweets/.png', 6),
 (8, 'users/21/tweets/1663420189.png', 6),
 (9, 'users/21/tweets/1663420195.png', 6),
-(10, 'users/21/tweets/61663420175.png', 6),
-(11, 'users/21/tweets/61663420150.png', 6),
+(10, 'users/2/tweets/4/imag1.jpg', 6),
+(11, 'users/2/tweets/4/imag1.jpg', 6),
 (12, 'users/21/tweets/6/1663420166.png', 6),
 (13, 'users/21/tweets/7/1663420178.png', 7),
 (14, 'users/21/tweets/7/1663420198.png', 7),
 (15, 'users/22/tweets/8/1663420190.png', 8),
 (16, 'users/19/tweets/8/1663420157.png', 8),
 (17, 'users/19/tweets/9/1663420164.png', 9),
-(18, 'users/19/tweets/9/1663420169.png', 9);
+(18, 'users/19/tweets/9/1663420169.png', 9),
+(19, 'users/2/tweets/10/imag1.jpg', 10),
+(20, 'users/2/tweets/10/imag2.jpg', 10),
+(21, 'users/2/tweets/10/imag3.jpg', 10),
+(22, 'users/2/tweets/10/imag4.jpg', 10),
+(23, 'users/2/tweets/16/1663524558.png', 16),
+(24, 'users/2/tweets/17/1663524582.png', 17);
 
 -- --------------------------------------------------------
 
@@ -186,19 +204,22 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `email`, `first_name`, `last_name`, `username`, `password`, `profile_picture_url`, `cover_picture_url`, `created_at`) VALUES
 (1, 'houssein@gmail.com', 'Houssein', 'Droubi', '@houssein', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 'NA', 'NA', '2022-09-01'),
-(2, 'mouhamad@gmail.com', 'Mouhamad', 'Droubie', '@mouhamad', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'NA', 'NA', '2022-09-02'),
-(3, 'ali@gmail.com', 'Ali', 'Droubi', '@alie', 'test', 'NA', 'Na', '2022-09-03'),
-(4, 'nour@gmail.com', 'Nour', 'Doe', '@nour', 'test', 'Na', 'Na', '1899-12-31'),
+(2, 'mouhamad@gmail.com', 'Mouhamad', 'Droubie', 'mouhamad@gmail.com1', '8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414', 'users/2/profile/1663448400.png', 'users/2/cover/1663448400.png', '2022-01-02'),
+(3, 'ali@gmail.com', 'Ali', 'Droubi', '@alie', 'test', 'users/3/profile/profile.png', 'NA\n', '2022-09-03'),
+(4, 'nour@gmail.com', 'Nour', 'Doe', '@nour', 'test', 'NA', 'NA', '1899-12-31'),
 (5, 'abbas@gmail.com', 'Abbas', 'Doe', '@Abbas', 'test', 'NA', 'NA', '2022-09-05'),
 (6, 'samah@gmail.com', 'samah', 'Doe', '@samah', 'test', 'NA', 'NA', '2022-09-04'),
-(7, 'joumana@gmail.com', 'Joumana', 'Doe', '@jumana', 'test', 'N', 'Na', '2022-09-06'),
-(8, 'fatima@gmail.com', 'Fatima', 'Doe', '@Fatima', 'test', 'Na', 'Na', '2022-09-08'),
-(9, 'amal@gmail.com', 'Amal', 'Doe', '@amal', 'test', 'NA', 'Na', '2022-09-09'),
+(7, 'joumana@gmail.com', 'Joumana', 'Doe', '@jumana', 'test', 'NA', 'NA\n', '2022-09-06'),
+(8, 'fatima@gmail.com', 'Fatima', 'Doe', '@Fatima', 'test', 'NA', 'NA', '2022-09-08'),
+(9, 'amal@gmail.com', 'Amal', 'Doe', '@amal', 'test', 'NA', 'NA', '2022-09-09'),
 (10, 'zaynab@gmail.com', 'Zaynab', 'Doe', '@zaynab', 'test', 'NA', 'NA', '2022-09-10'),
-(18, 'mahdi@gmail.com', 'Mahdi', 'Doe', '@Mahdi', 'tests', 'users/18/profile/1663275600.png', 'users/18/cover/1663275600.png', '2022-09-15'),
-(19, 'hassan@gmail.com', 'hassan', 'Doe', '@hassan', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'users/19/profile/1663189200.png', 'users/19/cover/1663189200.png', '2022-09-15'),
-(20, 'new@gmail.com', 'new', 'new', '@new', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'users/20/profile/1663362000.png', 'users/20/cover/1663362000.png', '2022-09-17'),
-(21, 'new@gmail.com1', 'new', 'new', '@new', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'users/21/profile/1663362000.png', 'users/21/cover/1663362000.png', '2022-09-17');
+(18, 'mahdi@gmail.com', 'Mahdi', 'Doe', '@Mahdi', 'tests', 'NA', 'users/18/cover/1663275600.png', '2022-09-15'),
+(19, 'hassan@gmail.com', 'hassan', 'Doe', '@hassan', 'NA', 'NA', 'NA', '2022-09-15'),
+(21, 'new@gmail.com', 'new', 'new', '@new', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'users/20/profile/1663362000.png', 'users/20/cover/1663362000.png', '2022-09-17'),
+(61, 'sadadsasd@sdsd', 'saddsa', 'saddsa', '123adssad', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'users/61/profile/1663448400.png', 'users/61/cover/1663448400.png', '2022-09-18'),
+(62, 'dsasda@', 'saddsa', 'sdads', 'adsasad', 'fc1f09ab08ebdd072ea6da53a5691abcc18c9163b1be1f0921a5adb50e3f5077', 'users/62/profile/1663448400.png', 'users/62/cover/1663448400.png', '2022-09-18'),
+(63, 'sadsad@', 'asd', 'ads', 'dassda', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'users/63/profile/1663448400.png', 'users/63/cover/1663448400.png', '2022-09-18'),
+(64, 'dsadas@', 'sad', 'dassda', 'dsasadads', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'users/64/profile/1663448400.png', 'users/64/cover/1663448400.png', '2022-09-18');
 
 --
 -- Indexes for dumped tables
@@ -248,19 +269,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `tweets`
 --
 ALTER TABLE `tweets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tweets_pictures`
 --
 ALTER TABLE `tweets_pictures`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
