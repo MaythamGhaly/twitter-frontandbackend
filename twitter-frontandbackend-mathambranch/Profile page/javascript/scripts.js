@@ -9,21 +9,24 @@ const join_date=document.getElementById("join_date");
 const following_number=document.getElementById("following_number");
 const follwer_number=document.getElementById("follwer_number");
 // The below url will be used for the pcitures of every tweet on top left
-let profile_url;
+let profile_url="./images/PP.png";
 // Fetch all data of the user in one single JSON response
 let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${localStorage.getItem("id")}&other_id=${localStorage.getItem("id")}`;
     fetch(url)
     .then(respone=>respone.json())
     .then(data=>{
         name1.innerText=Object.values(data)[0];
-        if((Object.values(data)[2])!="NA"){
-            // Get cover photo
-            cover_photo.src="http://localhost/twitter-frontandbackend/php/".concat(Object.values(data)[2]);
-        }
         if((Object.values(data)[3])!="NA"){
+            // Get cover photo
+            try{cover_photo.src="http://localhost/twitter-frontandbackend/php/".concat(Object.values(data)[3]);}
+            catch(err){}
+        }
+        if((Object.values(data)[2])!="NA"){
             // Get profile photo   
-            Profil_picture.src="http://localhost/twitter-frontandbackend/php/".concat(Object.values(data)[3]);
-            profile_url=Profil_picture.src; 
+            try{
+            Profil_picture.src="http://localhost/twitter-frontandbackend/php/".concat(Object.values(data)[2]);
+            profile_url=Profil_picture.src; }
+            catch(err){}
         }
         // Put each data on its place
         full_name.innerText=`${Object.values(data)[0]} ${Object.values(data)[1]}`;
@@ -155,7 +158,7 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
             // If the user has liked his tweet so the heart's color wil be red. Otherwise, it will be gray
             if(isLiked=='isliked'){
                 heart.innerHTML=Array('\&#10084;&#65039;');
-                // we have deffrientiate the two cases through the background color wich are white and wheat who 
+                // we have differentiate the two cases through the background color wich are white and wheat who 
                 // are too close to each other. Beacuse, we couldn't differe between them beause of inflexibility
                 // of emojis
                 heart.style.backgroundColor='white';
@@ -178,3 +181,53 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
             all_tweets.appendChild(div_tweet) ;
         }
     });
+
+    // /*---------------------------------------------------------------------------------------------*/
+    const label_update_profile=document.getElementById('label_update_profile');
+    const label_update_cover=document.getElementById('label_update_cover');
+    const btn_update_profile=document.getElementById('btn_update_profile');
+    const btn_update_cover=document.getElementById('btn_update_cover');
+    const btn_remove_cover=document.getElementById('btn_remove_cover');
+    const btn_remove_profile=document.getElementById('btn_remove_profile');
+    const input_username=document.getElementById('input_username');
+    const input_password=document.getElementById('input_password');
+    const input_usubmitsername=document.getElementById('submit');
+    
+
+
+
+    let removeCover=()=>{
+        let url = "http://localhost/twitter-frontandbackend/php/removecover.php";
+        let parameters = {
+            method:'POST',
+            body: new URLSearchParams({
+                id:localStorage.getItem("id")
+            })
+        };
+        fetch(url,parameters)
+        .then(respone=>respone.json())
+        .then(data=>{
+           if(Object.values(data)[0]=="cover removed"){
+            location.reload();
+;          }
+        });}
+
+        let removeProfile=()=>{
+            let url = "http://localhost/twitter-frontandbackend/php/removeprofile.php";
+            let parameters = {
+                method:'POST',
+                body: new URLSearchParams({
+                    id:localStorage.getItem("id")
+                })
+            };
+            fetch(url,parameters)
+            .then(respone=>respone.json())
+            .then(data=>{
+               if((Object.values(data)[0])=="profile removed"){
+                location.reload();
+    ;          }
+            });}
+            
+
+    btn_remove_cover.addEventListener('click',removeCover);
+    btn_remove_profile.addEventListener('click',removeProfile);

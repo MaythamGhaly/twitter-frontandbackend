@@ -48,18 +48,22 @@
                 <img src="../signin-signup-page/images/Twitter-logo-login.png" class="logo-signin">
                 <p>Edit your profile</p>
                 <div class="edit-section">
-                    <label for="img" class="label">Update profile:</label>
-                    <input class="file" type="file" id="img" name="img" accept="image/*">
-                    <button type="button" class="remove-btn">remove</button>
+                    <label for="img" class="label file-upload" id="label_update_profile">
+                    <input class="file" type="file" id="img" name="img" accept="image/jpeg, image/png, image/jpg" id="btn_update_profile">
+                    Update profile
+                    </label>
+                    <button type="button" class="remove-btn" id="btn_remove_profile">Remove profile</button>
                 </div> 
                 <div class="edit-section">
-                    <label for="img" class="label">Update cover:</label>
-                    <input class="file" type="file" id="img" name="img" accept="image/*">
-                    <button class="remove-btn">remove</button>
+                    <label for="img" class="label file-upload" id="label_update_cover">
+                    <input class="file" type="file" id="img" name="img" accept="image/jpeg, image/png, image/jpg" itemid="btn_update_cover">
+                    Update cover:
+                    </label>
+                    <button class="remove-btn" id="btn_remove_cover">Remove cover</button>
                 </div>
-                <input class="input" placeholder="Change Username">
-                <input class="input" placeholder="Change Password">
-                <button class="submit">
+                <input class="input" placeholder="Change Username" id="input_username">
+                <input class="input" placeholder="Change Password" id="input_password">
+                <button class="submit" id="submit">
                     Submit
                 </button>
             </div>
