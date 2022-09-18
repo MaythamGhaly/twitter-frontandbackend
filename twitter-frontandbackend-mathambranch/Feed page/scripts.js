@@ -64,7 +64,7 @@ let likeTweet=(id,tweet_id,heart)=>{
         if(Object.values(data)[0]=="liked"){
         heart.innerHTML=Array('\&#10084;&#65039;');
         heart.style.backgroundColor='white';
-;                   }
+                  }
     });}
 // Like tweet, so when the response is as unliked, the color will be gray.
 let unLikeTweet=(id,tweet_id,heart)=>{
@@ -176,3 +176,72 @@ let unLikeTweet=(id,tweet_id,heart)=>{
             all_tweets.appendChild(Tweet_feed);
         }
     });
+
+    // Upload tweets
+    const btn_tweet=document.getElementById('btn_tweet');
+    const tweet_text=document.getElementById('tweet_text');
+    const btn_upload_tweet=document.getElementById('btn_upload_tweet');
+    let image_base64 = "";
+
+    let addTweet = ()=>{
+        if(tweet_text.value.length==0 || tweet_text.value.length>280){
+            tweet_text.value='';
+            tweet_text.classList.add('red-color-text');
+            tweet_text.placeholder="Text length must be between 0 and 280";
+        }else{
+                let url = "http://localhost/twitter-frontandbackend/php/tweet.php";
+                let parameters = {
+                    method:'POST',
+                    body: new URLSearchParams({
+                        id:localStorage.getItem('id'),
+                        text:tweet_text.value
+                    })
+                };
+                fetch(url,parameters)
+                .then(respone=>respone.json())
+                .then(data=>{
+                    tweet_text.value='';
+                    tweet_text.placeholder="Done";
+                    if(image_base64!=""){
+                        let url1 = "http://localhost/twitter-frontandbackend/php/tweetpicture.php";
+                        let parameters1 = {
+                            method:'POST',
+                            body: new URLSearchParams({
+                                id:localStorage.getItem('id'),
+                                tweet_id:Object.values(data)[1],
+                                picture:image_base64
+                            })
+                        };
+                        fetch(url1,parameters1)
+                        .then(respone=>respone.json())
+                        .then(data1=>{
+                            location.reload();
+                        });
+                    }
+                });
+
+        }
+    }
+
+    let removeColorRed=()=>{
+        tweet_text.classList.remove('red-color-text');
+        tweet_text.placeholder="What's happening? ...";
+    }
+    
+     let pickUpImage =()=>{
+        let file = btn_upload_tweet['files'][0];
+        let reader = new FileReader();
+        reader.onload = function () {
+            image_base64 = reader.result.replace("data:", "")
+                .replace(/^.+,/, "");
+            
+        }
+        reader.readAsDataURL(file);
+        return image_base64;
+    }
+    btn_upload_tweet.addEventListener('change',pickUpImage);
+    tweet_text.addEventListener('click',removeColorRed);
+    btn_tweet.addEventListener('click',addTweet);
+
+    // Search friends
+    
