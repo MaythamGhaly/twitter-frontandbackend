@@ -11,7 +11,7 @@
     display: flex;
     flex-wrap: wrap;
 }
-.image {
+.image-backgground {
     order: 2;
     background-image: url("../signin-signup-page/images/login-img.jpg");
     background-repeat: no-repeat;
@@ -165,7 +165,6 @@ p {
     color: white;
     border-radius: 20px;
     border-style: 0px solid;
-    cursor: pointer;
 }
 .checkbox{
     width: 300px;
@@ -264,7 +263,6 @@ p {
     border: 1px solid black;
     min-width: 100px;
     margin-top: 10px;
-    cursor: pointer;
 }
 .Tweet{
     text-align: center;
@@ -326,7 +324,6 @@ p {
 .heart{
     width: 20px;
     height: 20px;
-    cursor: pointer;
 }
 /* following btn (show when the user Press on Follow button */
 .Following{
@@ -372,8 +369,6 @@ p {
     padding: 7px 50px;
     border-radius: 20px;
     cursor: pointer;
-    background-color: rgb(204, 35, 35);
-    color: white;
 }
 .submit{
     padding: 10px 50px;
@@ -382,12 +377,184 @@ p {
 .file{
     padding-top: 10px;
 }
+/* css for feed page */
+.feed-container{
+    display: flex;
+}
+.left-section{
+    display: none;
+    width: 28vw;
+}
+.feed-logo{
+    width: 28vw;
+    height: 28vh;
+}
+.feed-profile{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center
+}
+.feed-profile > p {
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000;
+    font-weight: bold;
+}
+.feed-img{
+    width: 130px;
+    height: 130px;
+    border-radius: 100px;
+}
+.search{
+    width: 28vw;
+}
+.search-input, .search-user {
+    width: 100%;
+    height: 50px;
+    border-radius: 20px;
+    padding-left: 10px;
+}
+.img-search{
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+}
+.search-user{
+    display: flex;
+    width: 100%;
+    background-color:rgb(103, 144, 255) ;
+    align-items: center;
+}
+.search-name{
+    width:23vw;
+    display: flex;
+    justify-content: space-between;
+}
+.search-name > p{
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+.Follow-user{
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: white;
+}
+.user-info{
+    display: flex;
+    width: 23vw;
+}
+.user-info > p{
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(255, 255, 255);
+}
+.right-section{
+    margin-left: 30px;
+    width: 100vw;
+}
+.tweet-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.tweet-section >p{
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000;
+    font-weight: bold;
+}
+.tweet-input{
+    width: 80%;
+    height: 150px;
+    border-radius: 30px;
+}
+.tweet-btn{
+    margin-right: 30px;
+    align-self: flex-end;
+    padding: 10px 30px;
+    border-radius: 20px;
+    background-color:rgb(103, 144, 255) ;
+    color: white;
+    margin-bottom: 50px;
+}
+.tweet-text{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.Tweet-feed{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-right: 50px;
+}
+/* css to the feed page mobile version */
+.search-phone{
+    width: 100%;
+    height: 8vh;
+    border-radius: 10px;
+}
+.phone-user{
+    display: flex;
+    margin-bottom: 15px;
+    border-bottom: 1px solid black;
+    padding-bottom: 3px;
+}
+.phone-search{
+    border-radius: 100px;
+}
+.user-phone-search{
+    border-radius: 100px;
+    width: 40px;
+    height: 40px;
+}
+.search-info{
+    display: flex;
+    flex-direction: column;
+}
+.phone-search-name{
+    display: flex;
+    justify-content: space-between;
+    width: 80vw;
+}
+.user-info-phone{
+    display: flex;
+    justify-content: space-between;
+}
+.Follow-user-phone{
+    border-radius: 20px;
+    padding: 4px 8px;
+    background-color:rgb(103, 144, 255)  ;
+    color: white;
+}
+.phone-search-name> p{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000;
+    font-weight: bold;
+}
+.user-info-phone > p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #000;
+}
+.phone-text{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.phone-text>p{
+    color: #000;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 /* media query */
 @media (min-width: 768px) {
     .login-page {
         display: block;
     }
-    .image {
+    .image-backgground {
         width: 50%;
         padding: 50px;
         order: 1;
@@ -441,7 +608,6 @@ p {
     }
     /* media query for profile page */
     .Profil-picture{
-        
         left: 6vw;
         width: 150px;
         height: 150px;
@@ -455,24 +621,21 @@ p {
     .Tweet{
         width: 50%;
     }
-    /* media query for edit popup */
-    /* .edit-popup{
-        display: none;
-        position: fixed;
-        height: 600px;
-        z-index: 1;
-        padding: 25px 250px;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.4);
+    /* css for the feed page */
+    .left-section{
+        display: block;
     }
-    .edit-content{
-        border: 1px solid black;
-    } */
+    .right-section{
+        width: 72vw;
+    }
+    .Tweet-feed{
+        width: 80%;
+    }
+    .phone-search{
+        display: none;
+    }
 }
+/* Utilities */
 /* Utilises */
 
 .red-color-text{
