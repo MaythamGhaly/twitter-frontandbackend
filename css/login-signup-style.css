@@ -512,6 +512,14 @@ p {
     width: 40px;
     height: 40px;
 }
+.to-profile{
+    padding: 5px 20px;
+    background-color: rgb(103, 144, 255);
+    color: white;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
 .search-info{
     display: flex;
     flex-direction: column;

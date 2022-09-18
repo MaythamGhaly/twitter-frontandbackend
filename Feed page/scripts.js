@@ -1,9 +1,13 @@
 const full_name = document.getElementById('full_name');
 const profile_picture=document.getElementById('profile_picture');
+const to_profile=document.getElementById("to-profile")
 localStorage.setItem("id",2);
 // Get all the feed by sending a request to the server
     let url = `http://localhost/twitter-frontandbackend/php/getfeeds.php?id=${localStorage.getItem("id")}`;
 
+    to_profile.addEventListener("click",() => {
+        location.replace("file:///C:/Users/Qitabi/Desktop/twitter%20site/twitter-frontend/Profile%20page/index.html");
+    })
     fetch(url)
     .then(respone=>respone.json())
     .then(data=>{
