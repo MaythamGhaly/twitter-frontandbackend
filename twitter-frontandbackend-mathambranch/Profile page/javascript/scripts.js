@@ -7,7 +7,7 @@ const username=document.getElementById("username");
 const join_date=document.getElementById("join_date");
 const following_number=document.getElementById("following_number");
 const follwer_number=document.getElementById("follwer_number");
-
+var profile_url;
 let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${localStorage.getItem("id")}&other_id=${localStorage.getItem("id")}`;
     fetch(url)
     .then(respone=>respone.json())
@@ -17,7 +17,9 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
         cover_photo.src="http://localhost/twitter-frontandbackend/php/".concat(Object.values(data)[2]);
         }
         if((Object.values(data)[3])!="NA"){
+               
         Profil_picture.src="http://localhost/twitter-frontandbackend/php/".concat(Object.values(data)[3]);
+        profile_url=Profil_picture.src; 
         }
         full_name.innerText=`${Object.values(data)[0]} ${Object.values(data)[1]}`;
         username.innerText=`@${Object.values(data)[4]}`;
@@ -34,7 +36,6 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
         join_date.innerText=`Joined ${array[2]},${toMonthName(array[1])} ${array[0]}`;
         following_number.innerText=`${Object.values(data)[6]} Following`
         follwer_number.innerText=`${Object.values(data)[7]} Followers`
-        console.log(Object.values(data)[8].length);
         if(Object.values(data)[8].length<=1){
             tweets_number.innerText=`${Object.values(data)[8].length} Tweet`
         }else{
@@ -45,8 +46,70 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
         let likeTweet=(tweet_id,)=>{
 
         }
+        
+        const all_tweets=document.getElementById('all_tweets');
         for(let i=0;i<array_tweets.length;i++){
-            console.log("saddsa");
-            console.log(array_tweets[i]);
+            const id= Object.values(array_tweets[i])[0];
+            const text= Object.values(array_tweets[i])[1];
+            const date= Object.values(array_tweets[i])[2];
+            const num_likes= Object.values(array_tweets[i])[3];
+            const isLiked= Object.values(array_tweets[i])[4];
+            const array_tweet_pictures= Object.values(array_tweets[i])[5];
+
+            const div_tweet=document.createElement('div');
+            div_tweet.classList.add('Tweet');
+            const tweet_header=document.createElement('div');
+            tweet_header.classList.add('tweet-header');
+            const tweet_profile=document.createElement('img');
+            tweet_profile.classList.add("tweet-profile");
+            const name_date = document.createElement('div');
+
+            name_date.classList.add('name-date');
+            const p=document.createElement('p');
+            const h6=document.createElement('h6');
+            name_date.appendChild(p);
+            name_date.appendChild(h6);
+            tweet_header.appendChild(tweet_profile);
+            tweet_header.appendChild(name_date);
+
+            div_tweet.appendChild(tweet_header);
+
+            const tweet_text=document.createElement('div');
+            tweet_text.classList.add('tweet-text');
+            const p1=document.createElement('p');
+            const images =document.createElement('div');
+            images.classList.add('images');
+
+
+            for(let j=0;j<array_tweet_pictures.length;j++){
+                const tweet_img=document.createElement('img');
+                tweet_img.classList.add('tweet-img');
+                tweet_img.src="http://localhost/twitter-frontandbackend/php/".concat(array_tweet_pictures[j]);
+                images.appendChild(tweet_img);
+            }
+            tweet_text.appendChild(p1);
+            tweet_text.appendChild(images);
+
+            div_tweet.appendChild(tweet_text);
+
+            const likes=document.createElement('div');
+            likes.classList.add('likes');
+            const heart=document.createElement('span');
+            heart.classList.add('heart');
+            const p2=document.createElement('p');
+            likes.appendChild(heart);
+            likes.appendChild(p2);
+            div_tweet.appendChild(likes);
+            p.innerText=full_name.innerText;
+            h6.innerText=`${date.split("-")[2]}, ${toMonthName(date.split("-")[1])} ${date.split("-")[0]}`;
+            if(profile_url!="NA"){
+                tweet_profile.src=profile_url;}
+            p1.innerText=text;    
+            all_tweets.appendChild(div_tweet) ;
+            if(num_likes<1){
+                p2.innerText=`${num_likes} like`;
+            }else{
+                p2.innerText=`${num_likes} likes`;
+            }
         }
     });
