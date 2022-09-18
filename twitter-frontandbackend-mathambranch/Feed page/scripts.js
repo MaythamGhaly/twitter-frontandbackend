@@ -260,6 +260,7 @@ let unLikeTweet=(id,tweet_id,heart)=>{
         
         for(let i=0;i<length;i++){
            let list =Object.values(data)[i];
+           let id1 =Object.values(data)[i][0];
            let first_name=Object.values(list)[1];
            let last_name=Object.values(list)[2];
            let profie_picture_search=Object.values(list)[4];
@@ -316,8 +317,10 @@ let unLikeTweet=(id,tweet_id,heart)=>{
             p1.innerText=`tweet ${tweet}`;
             p2.innerText=`following ${following}`;
             p3.innerText=`follower ${follower}`;
-            // console.log(profie_picture_search);
-            // console.log(profie_picture_search);
+            Follow_user.addEventListener('click',()=>{
+                localStorage.setItem("other_id",id1);
+                // TODO: Go from feed to other profile
+            })
             all_search.appendChild(search_user);
         }
     })
