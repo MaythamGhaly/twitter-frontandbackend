@@ -40,5 +40,13 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
         }else{
             tweets_number.innerText=`${Object.values(data)[8].length} Tweets`
         }
-        
+        let array_tweets=Object.values(data)[8];
+        // console.log(array_tweets);
+        let likeTweet=(tweet_id,)=>{
+
+        }
+        for(let i=0;i<array_tweets.length;i++){
+            console.log("saddsa");
+            console.log(array_tweets[i]);
+        }
     });
