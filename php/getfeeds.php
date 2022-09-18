@@ -70,6 +70,14 @@ if(isset($_GET['id'])){
 
 
      }
+     // These data will also be shown in feeds page
+     $query=$mysqli->prepare("SELECT first_name,last_name,profile_picture_url FROM users WHERE users.id =?");
+     $query->bind_param("s",$id);
+     $query->execute();
+     $array=$query->get_result()->fetch_assoc();
+     $response['first_name']=$array['first_name'];
+     $response['last_name']=$array['last_name'];
+     $response['profile_picture_url']=$array['profile_picture_url'];
      $response['tweets']=$response_tweets;
      echo json_encode($response);
 }
