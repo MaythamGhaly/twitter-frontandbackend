@@ -17,11 +17,13 @@ if(isset($_POST['id'])){
         $query=$mysqli->prepare("INSERT INTO blockers(user_id,user_blocking) values(?,?)");
         $query->bind_param("ss",$id,$other_id);
         // When both queries are executed, a JSON response with status 'blocked' will be returned back
+        $response=[];
         if($query->execute()){
-            $response=[];
             $response['status']="bocked";
-            echo json_encode($response);
+        }else{
+            $response['status']="already bocked";
         }
+        echo json_encode($response);
     }
 }
 ?>

@@ -264,6 +264,7 @@ p {
     border: 1px solid black;
     min-width: 100px;
     margin-top: 10px;
+    cursor: pointer;
 }
 .Tweet{
     text-align: center;
@@ -503,4 +504,12 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+  .relation{
+    display:flex;
+    flex-direction:column;
+  }
+  .btn-block{
+    /* &#9888; */
+    background-color: rgb(201, 27, 27);
   }
