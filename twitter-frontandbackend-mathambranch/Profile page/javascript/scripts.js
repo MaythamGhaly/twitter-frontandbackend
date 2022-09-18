@@ -1,3 +1,4 @@
+// Define all variables
 const name1=document.getElementById("name");
 const tweets_number=document.getElementById("tweets_number");;
 const cover_photo=document.getElementById("cover_photo");
@@ -7,27 +8,32 @@ const username=document.getElementById("username");
 const join_date=document.getElementById("join_date");
 const following_number=document.getElementById("following_number");
 const follwer_number=document.getElementById("follwer_number");
+// The below url will be used for the pcitures of every tweet on top left
 let profile_url;
+// Fetch all data of the user in one single JSON response
 let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${localStorage.getItem("id")}&other_id=${localStorage.getItem("id")}`;
     fetch(url)
     .then(respone=>respone.json())
-    .then(data=>{console.log(data)
+    .then(data=>{
         name1.innerText=Object.values(data)[0];
         if((Object.values(data)[2])!="NA"){
-        cover_photo.src="http://localhost/twitter-frontandbackend/php/".concat(Object.values(data)[2]);
+            // Get cover photo
+            cover_photo.src="http://localhost/twitter-frontandbackend/php/".concat(Object.values(data)[2]);
         }
         if((Object.values(data)[3])!="NA"){
-               
-        Profil_picture.src="http://localhost/twitter-frontandbackend/php/".concat(Object.values(data)[3]);
-        profile_url=Profil_picture.src; 
+            // Get profile photo   
+            Profil_picture.src="http://localhost/twitter-frontandbackend/php/".concat(Object.values(data)[3]);
+            profile_url=Profil_picture.src; 
         }
+        // Put each data on its place
         full_name.innerText=`${Object.values(data)[0]} ${Object.values(data)[1]}`;
         username.innerText=`@${Object.values(data)[4]}`;
+        // Get month name
         let toMonthName=(monthNumber)=> {
             const date = new Date(Object.values(data)[5]);
             date.setMonth(monthNumber - 1);
           
-            return date.toLocaleString('en-US', {
+            return date.toLocaleString('en-LB', {
               month: 'long',
             });
           }
@@ -42,9 +48,9 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
             tweets_number.innerText=`${Object.values(data)[8].length} Tweets`
         }
         let array_tweets=Object.values(data)[8];
-        // console.log(array_tweets);
         
-        let likeTweet=(id,tweet_id,heart,p2)=>{
+        // Like tweet, so when the response is liked, the color will be red.
+        let likeTweet=(id,tweet_id,heart)=>{
                 let url = "http://localhost/twitter-frontandbackend/php/liketweet.php";
                 let parameters = {
                     method:'POST',
@@ -56,14 +62,13 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
                 fetch(url,parameters)
                 .then(respone=>respone.json())
                 .then(data=>{
-                   console.log(data);
                    if(Object.values(data)[0]=="liked"){
                     heart.innerHTML=Array('\&#10084;&#65039;');
                     heart.style.backgroundColor='white';
 ;                   }
                 });}
-        
-        let unLikeTweet=(id,tweet_id,heart,p2)=>{
+        // Like tweet, so when the response is unliked, the color will be gray.
+        let unLikeTweet=(id,tweet_id,heart)=>{
                 let url = "http://localhost/twitter-frontandbackend/php/unliketweet.php";
                 let parameters = {
                     method:'POST',
@@ -75,24 +80,21 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
                 fetch(url,parameters)
                 .then(respone=>respone.json())
                 .then(data=>{
-                   console.log(data);
                    if(Object.values(data)[0]=="unliked"){
                     heart.innerHTML=Array('&#128420;');
                     heart.style.backgroundColor='wheat';
                    }
-               
-                   
                 });
         }
         
-        
+        // Get the data of each data and start the with appendChild by imagining the block how it could be if it's 
+        // made through html and start improve it here.
         const all_tweets=document.getElementById('all_tweets');
         for(let i=0;i<array_tweets.length;i++){
             const id= Object.values(array_tweets[i])[0];
             const text= Object.values(array_tweets[i])[1];
             const date= Object.values(array_tweets[i])[2];
             let num_likes= Object.values(array_tweets[i])[3];
-            console.log(num_likes);
             const isLiked= Object.values(array_tweets[i])[4];
             const array_tweet_pictures= Object.values(array_tweets[i])[5];
 
@@ -103,7 +105,6 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
             const tweet_profile=document.createElement('img');
             tweet_profile.classList.add("tweet-profile");
             const name_date = document.createElement('div');
-
             name_date.classList.add('name-date');
             const p=document.createElement('p');
             const h6=document.createElement('h6');
@@ -113,14 +114,13 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
             tweet_header.appendChild(name_date);
 
             div_tweet.appendChild(tweet_header);
-
             const tweet_text=document.createElement('div');
             tweet_text.classList.add('tweet-text');
             const p1=document.createElement('p');
             const images =document.createElement('div');
             images.classList.add('images');
 
-            
+            // The below loop is to fetch all the pictures in al tweets
             for(let j=0;j<array_tweet_pictures.length;j++){
                 const tweet_img=document.createElement('img');
                 tweet_img.classList.add('tweet-img');
@@ -141,6 +141,7 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
             likes.appendChild(p2);
             div_tweet.appendChild(likes);
             p.innerText=full_name.innerText;
+            // Split the date by date, month then year
             h6.innerText=`${date.split("-")[2]}, ${toMonthName(date.split("-")[1])} ${date.split("-")[0]}`;
             if(profile_url!="NA"){
                 tweet_profile.src=profile_url;}
@@ -151,6 +152,7 @@ let url = `http://localhost/twitter-frontandbackend/php/visitprofile.php?id=${lo
             }else{
                 p2.innerText=`${num_likes} likes`;
             }
+            // If the user has liked his tweet so the heart's color wil be red. Otherwise, it will be gray
             if(isLiked=='isliked'){
                 heart.innerHTML=Array('\&#10084;&#65039;');
                 heart.style.backgroundColor='white';
